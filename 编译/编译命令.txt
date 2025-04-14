@@ -1,0 +1,2 @@
+arm-none-linux-gnueabi-gcc main.c rfid.c lcd.c -o main -I /home/gec/sqlite3/include/ -L /home/gec/sqlite3/lib -lsqlite3 -ldl -lpthread
+注：arm-none-linux-genueabi-gcc编译工具可以换成arm-linux-gcc
