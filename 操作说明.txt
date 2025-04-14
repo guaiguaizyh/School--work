@@ -1,0 +1,22 @@
+RFID房卡管理系统-王长乐
+1.移植sqlite数据库至Ubuntu系统及gec6818开发板
+ubuntu:
+	源码配置安装
+	cd /mnt/hgfs/code
+	tar zxvf sqlite-autoconf-3300100.tar.gz -C ~
+	cd ~/sqlite-autoconf-3300100
+	./configure
+	make
+	sudo make install
+
+gec6818:
+	rx sqlite3_arm.tar.gz
+	tar zxvf sqlite3_arm.tar.gz -C /
+	chmod 777 /bin/*
+2.将源代码project传入Ubuntu进行编译，具体编译命令见编译文件夹
+3.在gec6818开发板上创建文件夹/project/test/code   /project/test/bg
+4.将素材bmp图片传入/project/test/bg
+5.将编译生成的可执行文件main传入/project/test/code
+6.执行可执行文件main： ./main
+	若提示permission defin则是未赋予可执行权限，使用chmod 777 main
+7.初次运行会在/project/test/code下生成hotel.db为数据库文件
