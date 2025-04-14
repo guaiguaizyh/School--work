@@ -1,0 +1,8 @@
+"STARTUP.obj",
+"main.obj",
+"supersonic.obj",
+".\timer.obj",
+"1602.obj",
+".\delay.obj",
+".\alarm.obj" 
+TO "project" 

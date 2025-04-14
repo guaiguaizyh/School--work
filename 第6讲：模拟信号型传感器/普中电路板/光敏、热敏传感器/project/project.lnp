@@ -1,0 +1,6 @@
+"STARTUP.obj",
+"main.obj",
+"uart.obj",
+"PCF8591.obj",
+"I2C.obj" 
+TO "project" 

@@ -1,0 +1,7 @@
+"STARTUP.obj",
+"main.obj",
+"1602.obj",
+"seg.obj",
+"delay.obj",
+"alarm.obj" 
+TO "project" 

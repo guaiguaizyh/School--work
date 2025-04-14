@@ -1,0 +1,125 @@
+C51 COMPILER V9.00   LED                                                                   12/08/2019 16:59:05 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE LED
+OBJECT MODULE PLACED IN LED.OBJ
+COMPILER INVOKED BY: D:\Program Files (x86)\KEIL\C51\BIN\C51.EXE LED.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <led.h>
+   2          
+   3          #define LEDDAT P0 //数据输出端口 
+   4          sbit DX=P2^6;   // 段选
+   5          sbit WX=P2^7;   // 位选
+   6          
+   7          u8 code table[]={
+   8          0x3f,0x06,0x5b,0x4f,
+   9          0x66,0x6d,0x7d,0x07,
+  10          0x7f,0x6f,0x77,0x7c,
+  11          0x39,0x5e,0x79,0x71,0x00}; //共阴数码管编码
+  12          
+  13          void Print_u32_LED(u32 n)//输出无符号整数(0-999999)到6位数码管,不足6位时，前面不显示
+  14          {u8 t=0xdf;
+  15   1       if(n==0) //若该数为0时直接显示0
+  16   1       {
+  17   2              LEDDAT=0xff; //位码消影
+  18   2              WX=1;//允许更新位码
+  19   2              LEDDAT=t; //更新位码
+  20   2              WX=0;//锁存位码
+  21   2                 
+  22   2              LEDDAT=0x00; //段码消影
+  23   2              DX=1;//允许更新段码
+  24   2              LEDDAT=table[0]; //更新段码
+  25   2              DX=0;//锁存段码
+  26   2       }
+  27   1       else
+  28   1       {
+  29   2              while(n)//若该数不为0，则一位一位的显示
+  30   2              {       LEDDAT=0xff; //位码消影
+  31   3                      WX=1;//允许更新位码
+  32   3                      LEDDAT=t; //更新位码
+  33   3                      WX=0;//锁存位码
+  34   3                 
+  35   3                      LEDDAT=0x00; //段码消影
+  36   3                      DX=1;//允许更新段码
+  37   3                      LEDDAT=table[n%10]; //更新段码
+  38   3                      DX=0;//锁存段码
+  39   3                                         
+  40   3              n=n/10;
+  41   3                      t=_cror_(t,1);
+  42   3                      delay_ms(3);
+  43   3              }
+  44   2       }
+  45   1      }
+  46          void Print_str_LED(u8 *f)//输出数字串到数码管
+  47          {
+  48   1       u8 t=0xdf,i;
+  49   1       i=strlen(f);
+  50   1       while(i)
+  51   1       {      LEDDAT=0xff; //位码消影
+  52   2              WX=1;//允许更新位码
+  53   2              LEDDAT=t; //更新位码
+  54   2              WX=0;//锁存位码
+  55   2                 
+C51 COMPILER V9.00   LED                                                                   12/08/2019 16:59:05 PAGE 2   
+
+  56   2              LEDDAT=0x00; //段码消影
+  57   2              DX=1;//允许更新段码
+  58   2              switch(f[i-1])
+  59   2              {
+  60   3              case '.':i--;LEDDAT=table[f[i-1]-'0']|0x80;break;
+  61   3              case '-':LEDDAT=0x40;break;
+  62   3              case ' ':LEDDAT=0x00;break;
+  63   3              default:LEDDAT=table[f[i-1]-'0']; 
+  64   3              } //更新段码
+  65   2              DX=0;//锁存段码
+  66   2                                         
+  67   2          i--;
+  68   2              t=_cror_(t,1);
+  69   2              delay_ms(3);
+  70   2       }
+  71   1       }
+  72          
+  73          void Print_float_LED(float n,u8 x)//输出小数(有效数字不超过8位)到8位数码管，保留x(0-3)位小数
+  74          {
+  75   1       u8 prtstr[12];
+  76   1       switch(x)
+  77   1       {
+  78   2       case 0:sprintf(prtstr,"%.0f",n);break;
+  79   2       case 1:sprintf(prtstr,"%.1f",n);break;
+  80   2       case 2:sprintf(prtstr,"%.2f",n);break;
+  81   2       case 3:sprintf(prtstr,"%.3f",n);break;
+  82   2       } 
+  83   1       Print_str_LED(prtstr); 
+  84   1      }
+  85          
+  86          void Print_char(u8 n,u8 k)//在最低位显示键码
+  87          {
+  88   1      u8 temp;
+  89   1      temp=_cror_(0xdf,k-1);
+  90   1      LEDDAT=0XFF;     //位码消影
+  91   1      WX=1;            //允许更新位码
+  92   1      LEDDAT=temp;     //更新位码
+  93   1      WX=0;           //锁存位码
+  94   1      
+  95   1      LEDDAT=0;        //段码消影
+  96   1      DX=1;   //允许更新段码
+  97   1      LEDDAT=table[n];//更新段码
+  98   1      DX=0;           //锁存段码
+  99   1      }
+ 100          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    434    ----
+   CONSTANT SIZE    =     37    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      27
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

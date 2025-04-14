@@ -1,0 +1,38 @@
+C51 COMPILER V9.60.0.0   ALARM                                                             05/17/2024 15:55:01 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE ALARM
+OBJECT MODULE PLACED IN .\alarm.obj
+COMPILER INVOKED BY: E:\danpianji\Keil 5\C51\BIN\C51.EXE ..\..\..\..\..\..\´«¸ĞÆ÷_ÆÕÖĞµçÂ·°å_¹¤³ÌÄ£°å20240423\´«¸ĞÆ÷_ÆÕÖ
+                    -ĞµçÂ·°å_¹¤³ÌÄ£°å20240420\project\app\alarm.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\alarm.lst) TABS(2) OBJE
+                    -CT(.\alarm.obj)
+
+line level    source
+
+   1          #include "alarm.h"
+   2          u8 count_100ms=0;//LEDé—ªçƒé—´éš”æ—¶é—´
+   3          bit alarm=0;//æŠ¥è­¦æ ‡è®°
+   4          void led_ctrl(u8 pin,u8 sta)//æŒ‡å®šç¯äº®æˆ–ç­ï¼Œpin(1ã€2ã€6ã€7ã€8å·ç¯)ï¼Œsta(ONã€OFF)
+   5          {
+   6   1        switch(sta)
+   7   1        {
+   8   2          case 1: if(pin)   P2=P2&(~(0x01<<(pin-1)));//æŒ‡å®šä½ç½®0ï¼Œç¯äº®
+   9   2                  break;
+  10   2          case 0: if(pin)   P2=P2|(0x01<<(pin-1));//æŒ‡å®šä½ç½®1ï¼Œç¯ç­
+  11   2                  break;
+  12   2        }
+  13   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     43    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

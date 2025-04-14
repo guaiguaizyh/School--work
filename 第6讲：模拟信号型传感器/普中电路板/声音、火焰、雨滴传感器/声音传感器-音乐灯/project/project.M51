@@ -1,0 +1,266 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        12/16/2019  10:55:00  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE STARTUP.obj, main.obj TO project
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  STARTUP.obj (?C_STARTUP)
+  main.obj (MAIN)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+
+
+LINK MAP OF MODULE:  project (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0005H     UNIT         ?DT?MAIN
+            IDATA   000DH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0006H     UNIT         ?PR?_ALARM_POWER?MAIN
+                    0009H     0002H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     008CH     UNIT         ?C_C51STARTUP
+            CODE    009AH     0057H     UNIT         ?PR?MAIN?MAIN
+            CODE    00F1H     0050H     UNIT         ?PR?TIME0?MAIN
+            CODE    0141H     004DH     UNIT         ?PR?_ALARM?MAIN
+            CODE    018EH     0020H     UNIT         ?PR?_DELAY_MS?MAIN
+            CODE    01AEH     0010H     UNIT         ?PR?ALARM_INIT?MAIN
+            CODE    01BEH     000CH     UNIT         ?C_INITSEG
+            CODE    01CAH     000AH     UNIT         ?PR?_DELAY_US?MAIN
+
+
+
+OVERLAY MAP OF MODULE:   project (?C_STARTUP)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?MAIN
+  +--> ?C_INITSEG
+
+?PR?MAIN?MAIN
+  +--> ?PR?_DELAY_MS?MAIN
+
+
+
+SYMBOL TABLE OF MODULE:  project (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/16/2019  10:55:00  PAGE 2
+
+
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:000EH         SEGMENT       ?C_C51STARTUP
+  I:000DH         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:0011H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:000EH         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:000EH         LINE#         133
+  C:0010H         LINE#         134
+  C:0011H         LINE#         135
+  C:0012H         LINE#         136
+  C:0014H         LINE#         185
+  C:0017H         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  B:00A8H.7       PUBLIC        EA
+  C:01AEH         PUBLIC        Alarm_init
+  B:00A0H.0       PUBLIC        LED1
+  B:00A0H.1       PUBLIC        LED2
+  B:00A0H.2       PUBLIC        LED3
+  B:00A0H.3       PUBLIC        LED4
+  B:00A0H.4       PUBLIC        LED5
+  B:00A0H.5       PUBLIC        LED6
+  B:00A0H.6       PUBLIC        LED7
+  B:00A0H.7       PUBLIC        LED8
+  B:0090H.0       PUBLIC        voice
+  D:0008H         PUBLIC        flag
+  D:0009H         PUBLIC        n0
+  B:00A0H.3       PUBLIC        beep
+  D:000BH         PUBLIC        n1
+  C:009AH         PUBLIC        main
+  D:0089H         PUBLIC        TMOD
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/16/2019  10:55:00  PAGE 3
+
+
+  B:00A8H.1       PUBLIC        ET0
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  C:018EH         PUBLIC        _delay_ms
+  B:0088H.4       PUBLIC        TR0
+  C:01CAH         PUBLIC        _delay_us
+  C:0003H         PUBLIC        _Alarm_Power
+  C:00F1H         PUBLIC        time0
+  C:0141H         PUBLIC        _Alarm
+  -------         PROC          _DELAY_US
+  D:0006H         SYMBOL        n
+  C:01CAH         LINE#         20
+  C:01CAH         LINE#         21
+  C:01CAH         LINE#         22
+  C:01D3H         LINE#         23
+  -------         ENDPROC       _DELAY_US
+  -------         PROC          _DELAY_MS
+  D:0006H         SYMBOL        x
+  -------         DO            
+  D:0004H         SYMBOL        i
+  D:0002H         SYMBOL        j
+  -------         ENDDO         
+  C:018EH         LINE#         25
+  C:018EH         LINE#         26
+  C:018EH         LINE#         27
+  C:0198H         LINE#         28
+  C:01ADH         LINE#         29
+  -------         ENDPROC       _DELAY_MS
+  -------         PROC          _ALARM
+  D:0005H         SYMBOL        t
+  -------         DO            
+  D:0004H         SYMBOL        k
+  D:0002H         SYMBOL        i
+  D:0002H         SYMBOL        j
+  -------         ENDDO         
+  C:0141H         LINE#         31
+  C:0143H         LINE#         32
+  C:0143H         LINE#         35
+  C:014AH         LINE#         36
+  C:014DH         LINE#         37
+  C:016AH         LINE#         38
+  C:016DH         LINE#         39
+  C:018AH         LINE#         40
+  C:018DH         LINE#         41
+  -------         ENDPROC       _ALARM
+  -------         PROC          ALARM_INIT
+  C:01AEH         LINE#         43
+  C:01AEH         LINE#         44
+  C:01AEH         LINE#         45
+  C:01B1H         LINE#         46
+  C:01B4H         LINE#         47
+  C:01B7H         LINE#         48
+  C:01B9H         LINE#         49
+  C:01BBH         LINE#         50
+  C:01BDH         LINE#         51
+  -------         ENDPROC       ALARM_INIT
+  -------         PROC          _ALARM_POWER
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/16/2019  10:55:00  PAGE 4
+
+
+  D:0007H         SYMBOL        t
+  C:0003H         LINE#         53
+  C:0003H         LINE#         54
+  C:0003H         LINE#         55
+  C:0008H         LINE#         56
+  -------         ENDPROC       _ALARM_POWER
+  -------         PROC          MAIN
+  -------         DO            
+  D:0001H         SYMBOL        noisy
+  -------         ENDDO         
+  C:009AH         LINE#         58
+  C:009AH         LINE#         59
+  C:009AH         LINE#         60
+  C:009CH         LINE#         61
+  C:009CH         LINE#         62
+  C:009CH         LINE#         63
+  C:009FH         LINE#         64
+  C:009FH         LINE#         65
+  C:00A1H         LINE#         66
+  C:00A2H         LINE#         67
+  C:00AAH         LINE#         68
+  C:00D4H         LINE#         69
+  C:00D4H         LINE#         70
+  C:00D6H         LINE#         71
+  C:00D8H         LINE#         72
+  C:00DAH         LINE#         73
+  C:00DCH         LINE#         74
+  C:00DEH         LINE#         75
+  C:00E0H         LINE#         76
+  C:00E2H         LINE#         77
+  C:00E2H         LINE#         78
+  C:00E4H         LINE#         80
+  C:00E4H         LINE#         81
+  C:00E6H         LINE#         82
+  C:00E8H         LINE#         83
+  C:00E8H         LINE#         84
+  C:00EFH         LINE#         85
+  -------         ENDPROC       MAIN
+  -------         PROC          TIME0
+  C:00F1H         LINE#         89
+  C:00F5H         LINE#         91
+  C:00F9H         LINE#         92
+  C:00F9H         LINE#         93
+  C:0101H         LINE#         94
+  C:0109H         LINE#         95
+  C:0109H         LINE#         96
+  C:010FH         LINE#         97
+  C:0112H         LINE#         98
+  C:0114H         LINE#         100
+  C:0114H         LINE#         101
+  C:0116H         LINE#         102
+  C:0116H         LINE#         103
+  C:0118H         LINE#         105
+  C:0118H         LINE#         106
+  C:0120H         LINE#         107
+  C:0128H         LINE#         108
+  C:0128H         LINE#         109
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/16/2019  10:55:00  PAGE 5
+
+
+  C:012EH         LINE#         110
+  C:0130H         LINE#         111
+  C:0133H         LINE#         112
+  C:0135H         LINE#         114
+  C:0135H         LINE#         115
+  C:013CH         LINE#         116
+  C:013CH         LINE#         117
+  C:013CH         LINE#         118
+  -------         ENDPROC       TIME0
+  -------         ENDMOD        MAIN
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ALARM?MAIN
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ALARM_INIT?MAIN
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ALARM_POWER?MAIN
+
+Program Size: data=14.0 xdata=0 code=466
+LINK/LOCATE RUN COMPLETE.  3 WARNING(S),  0 ERROR(S)

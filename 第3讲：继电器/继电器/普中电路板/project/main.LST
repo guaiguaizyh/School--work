@@ -1,0 +1,143 @@
+C51 COMPILER V9.00   MAIN                                                                  12/08/2019 22:01:13 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: D:\Program Files (x86)\KEIL\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          //本工程基于普中单片机开发板，晶振12MHz
+   2          #include <config.h> 
+   3          #include <ds18b20.h> 
+   4          
+   5          #include <1602.h>
+   6          
+   7          sbit beep=P1^5;//蜂鸣器
+   8          sbit relay=P2^0;//继电器
+   9          
+  10          u8 flag=0;      //0:叮,1:咚
+  11          u16 n0=0,n1=0;  //n0:叮周期计数，n1:咚周期计数
+  12          
+  13          void delay_us(u16 n)//微秒延时
+  14          {
+  15   1          while(--n);
+  16   1      }
+  17          
+  18          void delay_ms(u16 x)//毫秒延时函数
+  19          {u16 i,j;
+  20   1      for(i=0;i<x;i++)
+  21   1          for(j=0;j<115;j++);
+  22   1      }
+  23          
+  24          void Alarm(u8 t) //蜂鸣器报警,持续t秒,软件延时
+  25          {
+  26   1       u8 k; 
+  27   1       u16 i,j;               
+  28   1       for(k=0;k<t;k++)
+  29   1       { for(i=0;i<100;i++)//叮
+  30   2            {beep=0;delay_us(250);beep=1;delay_us(250);}
+  31   2         for(j=0;j<50;j++)//咚
+  32   2            {beep=0;delay_us(500);beep=1;delay_us(500);}
+  33   2       }
+  34   1      }
+  35          
+  36          void Alarm_Init() //蜂鸣器报警,定时器T0
+  37          {
+  38   1              TMOD&=0xf0;//定时器T0设为方式2,8位自动装载模式
+  39   1          TMOD|=0x02;  
+  40   1              TH0=0X00;
+  41   1              TL0=0X00; //定时250us
+  42   1              EA=1;
+  43   1              ET0=1;
+  44   1      }
+  45          
+  46          void Alarm_Power(u8 t) //打开/关闭蜂鸣器报警,定时器T0,1：打开，0：关闭
+  47          {
+  48   1              TR0=t; 
+  49   1      }
+  50          
+  51          void main()
+  52          {
+  53   1              float n;
+  54   1              u8 print[10];
+  55   1      
+C51 COMPILER V9.00   MAIN                                                                  12/08/2019 22:01:13 PAGE 2   
+
+  56   1              relay=0;
+  57   1              LCD1602_Init();//1602初始化
+  58   1              Alarm_Init();//蜂鸣器(定时器T0)初始化
+  59   1              
+  60   1              while(1)
+  61   1              {    
+  62   2                      Ds18b20_Tempchg();      //启动温度变换
+  63   2                      n=Ds18b20_Gettemp();  //读取温度
+  64   2                      
+  65   2                      sprintf(print,"Temp: %.1f",n);
+  66   2                      LCD1602_disstr(print,0,0);//输出到1602液晶显示屏
+  67   2                      if(n>=20) {
+  68   3                                                      relay=1;
+  69   3                                              //      Alarm_Power(1);
+  70   3                                                      Alarm(3);
+  71   3                                                      
+  72   3                                }
+  73   2                      else      {
+  74   3                                                      relay=0;
+  75   3                                              //      Alarm_Power(0);                                                 
+  76   3                                        }
+  77   2                      delay_ms(800);          
+  78   2                                                 
+  79   2              }
+  80   1      }
+  81          
+  82          //叮(一个周期高250us低250us，共500个周期，0.25秒)，咚(一个周期高500us低500us，共250个周期，0.25秒)
+  83          void time0() interrupt 1
+  84          {
+  85   1              if(flag==0)
+  86   1              {  
+  87   2                      n0++;
+  88   2                      if(n0==1000)            
+  89   2                      {
+  90   3                              n0=0;
+  91   3                              flag=1;
+  92   3                      }
+  93   2                      else
+  94   2                      {
+  95   3                              beep=~beep;
+  96   3                      }
+  97   2              }
+  98   1              else
+  99   1              {                                          //通过改变定时计数时间可以改变门铃的声音
+ 100   2                      n1++;                     //叮
+ 101   2                      if(n1==1000)
+ 102   2                      {
+ 103   3                              n1=0;
+ 104   3                              TR0=0;
+ 105   3                              flag=0;
+ 106   3                      }
+ 107   2                      else
+ 108   2                      {
+ 109   3                              if(n1%2==0)     beep=~beep;
+ 110   3                      }
+ 111   2              }
+ 112   1      }
+ 113          
+ 114          
+ 115          
+ 116           
+
+C51 COMPILER V9.00   MAIN                                                                  12/08/2019 22:01:13 PAGE 3   
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    322    ----
+   CONSTANT SIZE    =     11    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      5      14
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

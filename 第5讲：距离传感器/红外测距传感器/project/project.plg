@@ -1,0 +1,68 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+F:\2019下\传感器\课件\第5讲：距离传感器\红外测距传感器\project\project.uvproj
+Project File Date:  12/12/2019
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling 1602.c...
+compiling main.c...
+compiling I2C.c...
+compiling PCF8591.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_RETACADR?1602
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LCD1602_DISCH_X_Y?1602
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LCD1602_DISCH?1602
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD1602_CLEAR?1602
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD1602_RETURN?1602
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD1602_BACKSPACE?1602
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LCD1602_CURSOR?1602
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LCD1602_SCREEN?1602
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LCD1602_POW?1602
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ALARM?MAIN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ALARM_INIT?MAIN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_ALARM_POWER?MAIN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_PCF8591_DA?PCF8591
+Program Size: data=93.1 xdata=0 code=3596
+creating hex file from "project"...
+"project" - 0 Error(s), 13 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling 1602.c...
+compiling main.c...
+MAIN.C(6): error C141: syntax error near 'disval'
+MAIN.C(6): error C136: invalid dimension size: [0]
+MAIN.C(6): error C279: 'disval': multiple initialization
+MAIN.C(6): error C231: 'disval': redefinition
+MAIN.C(6): error C141: syntax error near '0'
+MAIN.C(7): error C279: 'disval': multiple initialization
+MAIN.C(7): error C141: syntax error near '1'
+MAIN.C(8): error C279: 'disval': multiple initialization
+MAIN.C(8): error C231: 'disval': redefinition
+MAIN.C(11): error C141: syntax error near 'sbit'
+MAIN.C(11): error C247: non-address/-constant initializer
+MAIN.C(67): error C202: 'i': undefined identifier
+MAIN.C(67): error C141: syntax error near ';'
+MAIN.C(67): error C141: syntax error near ')'
+MAIN.C(68): error C141: syntax error near 'break'
+MAIN.C(70): error C202: 'i': undefined identifier
+compiling I2C.c...
+compiling PCF8591.c...
+Target not created
