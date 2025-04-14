@@ -1,0 +1,77 @@
+C51 COMPILER V9.60.0.0   ULTRASONIC                                                        04/22/2024 20:57:44 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE ULTRASONIC
+OBJECT MODULE PLACED IN .\output\ultrasonic.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE app\ultrasonic.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\app) DEBUG OBJECTEXTE
+                    -ND PRINT(.\ultrasonic.lst) TABS(2) OBJECT(.\output\ultrasonic.obj)
+
+line level    source
+
+   1          #include "ultrasonic.h"
+   2          
+   3          sbit Trig = P2^1;//输出8个40KHz方波激发超声波发射头，周期为25us，方波高低电平各�
+             -�12.5us
+   4          sbit Echo = P2^0;//接收超声波，接收到后为低电平
+   5          void timer1_init()//定时器0定时11us(经过反复调试，设置为11us比较合适)@12MHz，输出8�
+             -�40KHz方波
+   6          {
+   7   1        TMOD &= 0x0F;   //设置定时器模式
+   8   1        TMOD |= 0x20;   //设置定时器模式
+   9   1        TL1 = 0xF4;//设置定时器0初值
+  10   1        TH1 = 0xF4;
+  11   1        TF1 = 0;//清除定时器0中断标记TF0
+  12   1        ET1 = 0;//禁止定时器0中断
+  13   1        TR1 = 0;//定时器0开始定时
+  14   1      }
+  15          u8 US_dist( )//超声波测距，单位为CM
+  16          {
+  17   1        u8 i;
+  18   1        u16 n;
+  19   1        timer1_init();//定时器0初始化设置
+  20   1        TR1 = 1;//启动定时器0开始计时
+  21   1        for(i=0;i<8;i++)//Trig引脚发出8个40KHz方波驱动超声波发送探头
+  22   1        {
+  23   2          Trig=0;//输出低电平  
+  24   2          while(TF1==0);//通过查询定时器T0的中断标记来看定时(12us)是否结束
+  25   2          TF1 = 0;//中断标记清零
+  26   2          Trig =1;//输出高电平
+  27   2          while(TF1==0);//通过查询定时器T0的中断标记来看定时(12us)是否结束
+  28   2          TF1 = 0;//中断标记清零  
+  29   2        }
+  30   1        TR1= 0; //停止定时
+  31   1        TL1 = 0x00;//计数值初值为0，每隔1us计数值加1，根据计数值可求出所用时间
+  32   1        TH1 = 0x00;
+  33   1        TR1 = 1;//启动定时器0开始计时
+  34   1        while(Echo==1&&TF1==0);//等待接收引脚Echo为低电平
+  35   1        TR1= 0;//接收到回声后，停止定时
+  36   1        if(TF1==1)//TF0=1，超出测量范围
+  37   1        {
+  38   2          TF1=0;//清除定时器0中断标记
+  39   2          n=255;
+  40   2        }
+  41   1        else//Echo=0，测距正常
+  42   1        {
+  43   2          n=TH1;
+  44   2          n=n<<8;
+  45   2          n=n+TL1;
+  46   2          n=n/58;//计算距离(单位为CM)：n*1us/1000000s*340m/2*100cm，即n*0.017，等价于n/58
+  47   2        }
+  48   1        return (u8)n;
+  49   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+C51 COMPILER V9.60.0.0   ULTRASONIC                                                        04/22/2024 20:57:44 PAGE 2   
+
+   CODE SIZE        =    109    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

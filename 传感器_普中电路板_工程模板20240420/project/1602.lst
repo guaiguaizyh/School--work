@@ -1,0 +1,117 @@
+C51 COMPILER V9.60.0.0   1602                                                              05/24/2024 14:08:23 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE 1602
+OBJECT MODULE PLACED IN .\output\1602.obj
+COMPILER INVOKED BY: E:\danpianji\Keil 5\C51\BIN\C51.EXE app\1602.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\app) DEBUG OBJECTE
+                    -XTEND PRINT(.\1602.lst) TABS(2) OBJECT(.\output\1602.obj)
+
+line level    source
+
+   1          #include "1602.h"
+   2          
+   3          
+   4          
+   5          u8 DectectBusyBit( )//状态判断函数(忙/闲?)
+   6          {   
+   7   1        u8 result;
+   8   1        LCD1602_DATA = 0xff;//读状态前先置高电平，防止误判
+   9   1        RS = 0;
+  10   1        delay_ms(5);
+  11   1        RW = 1;
+  12   1        LCDEN = 1;
+  13   1        delay_ms(5);
+  14   1        result=LCD1602_DATA&0x80; //取最高位即为忙标记，若LCM忙,则反复测试,在此处原地踏步
+             -；当LCM闲时，才往下继续
+  15   1        LCDEN = 0;
+  16   1        return result;          
+  17   1      }   
+  18          
+  19          void WrComLCD(u8 ComVal)//写命令函数
+  20          {
+  21   1        while(DectectBusyBit()==1);//先检测LCM是否空闲
+  22   1        RS = 0;
+  23   1        delay_ms(1);
+  24   1        RW = 0;
+  25   1        LCDEN = 1;
+  26   1        LCD1602_DATA = ComVal;
+  27   1        delay_ms(1);
+  28   1        LCDEN = 0;  
+  29   1      }
+  30          
+  31          void WrDatLCD(u8 DatVal)//写数据函数
+  32          {
+  33   1        while(DectectBusyBit()==1); 
+  34   1        RS = 1;
+  35   1        delay_ms(1);
+  36   1        RW = 0;
+  37   1        LCDEN = 1;
+  38   1        LCD1602_DATA = DatVal;
+  39   1        delay_ms(1);
+  40   1        LCDEN = 0;  
+  41   1      }
+  42          
+  43          void LCD1602pos(u8 x,u8 y)//1602显示坐标定位函数：x为行标，0：第一行，1：第二行；y�
+             -��列标，0-15
+  44          {
+  45   1        u8 t;
+  46   1        t=x?0x40:0x00;
+  47   1        WrComLCD(0x80+t+y);  
+  48   1      }
+  49          
+  50          void LCD1602_Init( )//1602初始化函数
+  51          { 
+  52   1        WrComLCD(0x38);     // 功能设定:16*2行、5*7点阵、8位数据接口
+C51 COMPILER V9.60.0.0   1602                                                              05/24/2024 14:08:23 PAGE 2   
+
+  53   1        WrComLCD(0x38);
+  54   1        WrComLCD(0x38);    
+  55   1      //多次重复设定功能指令,因为LCD启动后并不知道使用的是4位数据接口还是8位的�
+             -�所以开始时总是默认为4位，这样刚开始写入功能设定指令时，低4位被忽略,为了可靠，最�
+             -�多写几遍该指令 
+  56   1        WrComLCD(0x01);    // 清屏 
+  57   1        WrComLCD(0x06);    // 光标自增、屏幕不动  
+  58   1        delay_ms(1);      // 延时，等待上面的指令生效，下面再显示，防止出现乱码
+  59   1        WrComLCD(0x0c);    // 开显示、关光标
+  60   1        LCD1602pos(0,0);//从第一行第一个字符开始显示
+  61   1        delay_ms(5);
+  62   1      }
+  63          
+  64          void LCD1602_disstr(u8 *p,u8 x,u8 y)//从指定坐标开始显示英文字符串（长度不超过32），
+             -自动换行
+  65          { 
+  66   1        u8 i=0;
+  67   1        LCD1602pos(x,y);
+  68   1        while(p[i]!='\0')
+  69   1        {  
+  70   2          WrDatLCD(p[i]);
+  71   2          i++;
+  72   2          delay_ms(5);
+  73   2        
+  74   2          if(y+i==16)  //一行显示到末尾
+  75   2          {  
+  76   3              x=x^0x01;//切换到另一行，如果第1行写完换行到第2行,如果第2行写完换行到第1
+             -行
+  77   3              LCD1602pos(x,0);//设置显示地址为另一行行首
+  78   3          }   
+  79   2        } 
+  80   1      }
+  81          
+  82          void LCD1602_clear( )//1602清屏函数
+  83          {
+  84   1        WrComLCD(0x01);    // 清屏
+  85   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    246    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       8
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

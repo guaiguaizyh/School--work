@@ -1,0 +1,38 @@
+C51 COMPILER V9.60.0.0   TIMER0                                                            04/22/2024 21:34:28 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE TIMER0
+OBJECT MODULE PLACED IN .\output\timer0.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE app\timer0.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\app) DEBUG OBJECTEXTEND P
+                    -RINT(.\timer0.lst) TABS(2) OBJECT(.\output\timer0.obj)
+
+line level    source
+
+   1          //本代码基于stc89c52，串口通信时需要使用定时器T1设置波特率，因此使用使用定�
+             -��器T0来产生1ms的定时
+   2          #include "timer0.h"
+   3          void timer0_init()//定时器T0定时1毫秒@12.000MHz
+   4          {
+   5   1        TMOD&= 0xF0;
+   6   1        TMOD|= 0x01;  //设置定时器T0工作模式：软启动、定时、工作方式1-16位计数值
+   7   1        TL0 = 0x18;   //设置定时初值，定时1ms
+   8   1        TH0 = 0xFC;   
+   9   1        TF0 = 0;    //清除TF0标志
+  10   1        TR0 = 1;    //定时器0开始计时
+  11   1        ET0=1;      //允许定时器0中断
+  12   1        EA=1;     //开中断 
+  13   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     21    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

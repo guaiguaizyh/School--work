@@ -1,0 +1,10 @@
+".\output\STARTUP.obj",
+".\output\main.obj",
+".\output\delay.obj",
+".\output\timer.obj",
+".\output\alarm.obj",
+".\output\1602.obj",
+".\output\supersonic.obj",
+".\output\seg.obj" 
+TO ".\output\project" 
+PRINT(".\project.m51")

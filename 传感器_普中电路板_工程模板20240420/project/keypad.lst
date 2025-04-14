@@ -1,0 +1,122 @@
+C51 COMPILER V9.60.0.0   KEYPAD                                                            04/23/2024 08:04:08 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE KEYPAD
+OBJECT MODULE PLACED IN .\output\keypad.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE app\keypad.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\app) DEBUG OBJECTEXTEND P
+                    -RINT(.\keypad.lst) TABS(2) OBJECT(.\output\keypad.obj)
+
+line level    source
+
+   1          //本代码基于stc89c52，独立按键K1、K2、K3、K4分别接P3.0、P3.1、P3.2、P3.3；矩阵按键
+             -行引脚P17、P16、P15、P14，列引脚P13、P12、P11、P10
+   2          #include "keypad.h"
+   3          u8 count_10ms=0;//矩阵按键扫描定时，10ms
+   4          bit key_scan=0;//定时扫描按键标记
+   5          u8 btn_read()//独立按键
+   6          {
+   7   1        static u8 sta,key;
+   8   1        u8 L4;
+   9   1        L4=P3&0x0f;//扫描是否有按键按下
+  10   1        switch(sta)
+  11   1        {
+  12   2          case 0: if(L4!=0x0f) sta=1;//第一次检测到按键按下
+  13   2                  break;
+  14   2          case 1: if(L4!=0x0f)//去抖，确认按键按下
+  15   2                  { 
+  16   3                    sta=2;
+  17   3                    switch(L4)
+  18   3                    {
+  19   4                      case  0x0e:key=2;break;
+  20   4                      case  0x0d:key=1;break;
+  21   4                      case  0x0b:key=3;break;
+  22   4                      case  0x07:key=4;break;
+  23   4                    }
+  24   3                  }
+  25   2                  else  sta=0;//抖动
+  26   2                  break;
+  27   2          case 2: if(L4==0x0f)//等待按键释放  
+  28   2                  {
+  29   3                    sta=0;      
+  30   3                    return key;
+  31   3                  } 
+  32   2        }
+  33   1        return 0;
+  34   1      }
+  35          u8 kbd_read()//矩阵按键
+  36          {
+  37   1        static u8 sta,key;
+  38   1        u8 H4;
+  39   1        P1=0xF0;
+  40   1        H4=P1&0xF0;//扫描是否有按键按下
+  41   1        switch(sta)
+  42   1        {
+  43   2          case 0:if(H4!=0xF0) sta=1;//第一次检测到按键按下
+  44   2                 break;
+  45   2          case 1:if(H4!=0xF0)//去抖，确认按键按下
+  46   2                 { 
+  47   3                    sta=2;         
+  48   3                    P1=0xF7;//扫描第一列
+  49   3                    H4=P1&0xF0;
+  50   3                    switch(H4)
+  51   3                    {
+  52   4                      case  0xe0:key=13;break;
+  53   4                      case  0xd0:key=9;break;
+C51 COMPILER V9.60.0.0   KEYPAD                                                            04/23/2024 08:04:08 PAGE 2   
+
+  54   4                      case  0xb0:key=5;break;
+  55   4                      case  0x70:key=1;break;
+  56   4                    }
+  57   3                    P1=0xFB;//扫描第二列           
+  58   3                    H4=P1&0xF0;
+  59   3                    switch(H4)
+  60   3                    {
+  61   4                      case  0xe0:key=14;break;
+  62   4                      case  0xd0:key=10;break;
+  63   4                      case  0xb0:key=6;break;
+  64   4                      case  0x70:key=2;break;
+  65   4                    }
+  66   3                    P1=0xFD;//扫描第三列             
+  67   3                    H4=P1&0xF0;
+  68   3                    switch(H4)
+  69   3                    {
+  70   4                      case  0xe0:key=15;break;
+  71   4                      case  0xd0:key=11;break;
+  72   4                      case  0xb0:key=7;break;
+  73   4                      case  0x70:key=3;break;
+  74   4                    }
+  75   3                    P1=0xFE;//扫描第四列                             
+  76   3                    H4=P1&0xF0;
+  77   3                    switch(H4)
+  78   3                    {
+  79   4                      case  0xe0:key=16;break;
+  80   4                      case  0xd0:key=12;break;
+  81   4                      case  0xb0:key=8;break;
+  82   4                      case  0x70:key=4;break;
+  83   4                    }
+  84   3                }
+  85   2                else  sta=0;//抖动
+  86   2                break;
+  87   2          case 2://等待按键释放
+  88   2                if(H4==0xF0)  
+  89   2                {
+  90   3                  sta=0;
+  91   3                  return   key;
+  92   3                }         
+  93   2        }
+  94   1        return 0;
+  95   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    324    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      5    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

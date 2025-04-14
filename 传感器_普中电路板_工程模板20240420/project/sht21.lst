@@ -1,0 +1,49 @@
+C51 COMPILER V9.60.0.0   SHT21                                                             04/23/2024 07:59:29 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE SHT21
+OBJECT MODULE PLACED IN .\output\sht21.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE app\sht21.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\app) DEBUG OBJECTEXTEND PR
+                    -INT(.\sht21.lst) TABS(2) OBJECT(.\output\sht21.obj)
+
+line level    source
+
+   1          #include "sht21.h"
+   2          
+   3          u8 SHT21_measure(u8 cmd)////测温湿度，测温度，命令字为0xF3(TP)；测湿度，命令字为0xF5
+             -(RH)
+   4          {
+   5   1        u8 datH,datL;
+   6   1        u16 date=0;
+   7   1        I2CStart();//启动
+   8   1        I2CSendByte(0x80);//发送器件地址和写命令
+   9   1        I2CWaitAck();//等待应答
+  10   1        I2CSendByte(cmd);//发送测量命令
+  11   1        I2CWaitAck();//等待应答
+  12   1        I2CStart();//重新启动
+  13   1        I2CSendByte(0x81);//发送器件地址和读命令
+  14   1        I2CWaitAck();//等待应答
+  15   1        datH = I2CReceiveByte();//读出高8位
+  16   1        datL = I2CReceiveByte();//读出低8位 
+  17   1        I2CSendAck(1);//发送非应答信号
+  18   1        I2CStop();//停止
+  19   1        date=datH<<8|datL;  //组合成14/12位数据
+  20   1        date=date&0xFFFC;   //低2位清零
+  21   1        if(cmd==TP) date=date*175.72/65536-46.85; //温度转换
+  22   1        if(cmd==RH) date=date*125.0/65536-6;       //湿度转换
+  23   1        return date;
+  24   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    157    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

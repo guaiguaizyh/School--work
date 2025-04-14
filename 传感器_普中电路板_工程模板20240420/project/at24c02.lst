@@ -1,0 +1,55 @@
+C51 COMPILER V9.60.0.0   AT24C02                                                           04/23/2024 07:59:27 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE AT24C02
+OBJECT MODULE PLACED IN .\output\at24c02.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE app\at24c02.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\app) DEBUG OBJECTEXTEND 
+                    -PRINT(.\at24c02.lst) TABS(2) OBJECT(.\output\at24c02.obj)
+
+line level    source
+
+   1          #include "at24c02.h"
+   2          
+   3          u8 ROM_read(u8 address)//读at24c02
+   4          {
+   5   1        u8 dat;
+   6   1        I2CStart();//启动
+   7   1        I2CSendByte(0xa0);//发送器件地址和写命令
+   8   1        I2CWaitAck();//等待应答
+   9   1        I2CSendByte(address);//发送存储单元地址
+  10   1        I2CWaitAck();//等待应答
+  11   1        I2CStart();//重新启动
+  12   1        I2CSendByte(0xa1);//发送器件地址和读命令
+  13   1        I2CWaitAck();//等待应答
+  14   1        dat = I2CReceiveByte();//读出存储单元数据
+  15   1        I2CSendAck(1);//发送非应答信号
+  16   1        I2CStop();//停止
+  17   1        return dat;
+  18   1      }
+  19          
+  20          void ROM_write(u8 address,u8 dat)//写at24c02
+  21          {
+  22   1        I2CStart();//启动
+  23   1        I2CSendByte(0xa0);//发送器件地址和写命令
+  24   1        I2CWaitAck();//等待应答
+  25   1        I2CSendByte(address);//发送存储单元地址
+  26   1        I2CWaitAck();//等待应答
+  27   1        I2CSendByte(dat); //发送存储单元数据
+  28   1        I2CWaitAck();//等待应答
+  29   1        I2CStop();//停止
+  30   1        delay_ms(5);//延时*****需要添加代码*****  
+  31   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     89    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       4
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

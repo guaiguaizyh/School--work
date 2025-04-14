@@ -1,0 +1,125 @@
+C51 COMPILER V9.60.0.0   SHT10                                                             04/23/2024 07:59:29 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE SHT10
+OBJECT MODULE PLACED IN .\output\sht10.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE app\sht10.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\app) DEBUG OBJECTEXTEND PR
+                    -INT(.\sht10.lst) TABS(2) OBJECT(.\output\sht10.obj)
+
+line level    source
+
+   1          #include "sht10.h"
+   2          
+   3          #define NOP5() {_nop_();_nop_();_nop_();_nop_();_nop_();}// 延时5微妙
+   4          
+   5          void Start()//启动传输
+   6          {
+   7   1        SDA = 1;    
+   8   1        SCL = 0;    //初始状态
+   9   1        _nop_();
+  10   1        SCL = 1;    
+  11   1        _nop_();
+  12   1        SDA = 0;    
+  13   1        _nop_();
+  14   1        SCL = 0;    
+  15   1        NOP5();
+  16   1        SCL = 1;     
+  17   1          _nop_();
+  18   1        SDA = 1;
+  19   1        _nop_();
+  20   1        SCL = 0;
+  21   1      } 
+  22          
+  23          void Sht10_Reset()//传感器复位，状态寄存器的值不变
+  24          { 
+  25   1        u8 i;
+  26   1        SDA = 1;    
+  27   1        SCL = 0;    //初始状态
+  28   1        for(i = 0; i < 9; i++)
+  29   1        { SCL = 1;
+  30   2          SCL = 0;
+  31   2        } 
+  32   1        Start();//发启动传输信号
+  33   1      }
+  34          
+  35          u8 WriteByte(u8 SendByte)//写入一个字节并读取应答,返回值为0表示确认，为1表示没有�
+             -��认
+  36          {
+  37   1        u8 i,error;
+  38   1        for(i = 0; i < 8; i++)//循环写入8位命令，先写高位
+  39   1        {
+  40   2            SendByte<<=1;
+  41   2            SDA=CY; 
+  42   2            SCL = 1;      
+  43   2            NOP5();                 
+  44   2            SCL = 0;
+  45   2         }
+  46   1        SDA = 1;//释放SDA，让传感器发应答
+  47   1        SCL=1;
+  48   1        error=SDA;//SHT拉低SDA表示测量结束
+  49   1        SCL=0;
+  50   1        return error; 
+  51   1      }
+  52          
+  53          u8 ReadByte(u8 Ack) //读取一个字节并发送应答（Ack为0表示应答，为1表示不应答），�
+C51 COMPILER V9.60.0.0   SHT10                                                             04/23/2024 07:59:29 PAGE 2   
+
+             -��回接收到的字节
+  54          {
+  55   1        u8 i,recbyte=0;
+  56   1        SDA=1;//释放总线，让传感器发数据
+  57   1        for(i = 0; i < 8; i++)//循环写入8位命令，先写高位
+  58   1        {
+  59   2          SCL=1;
+  60   2          NOP5();
+  61   2          recbyte=(recbyte<<1)|SDA;
+  62   2          SCL = 0;
+  63   2         }
+  64   1        SDA = Ack;//主机向传感器发应答
+  65   1        SCL=1;
+  66   1        NOP5();
+  67   1        SCL=0;
+  68   1        SDA=1;//释放总线，让传感器继续发数据
+  69   1        return recbyte; 
+  70   1      }
+  71          u8 sht10_measure(u8 cmd)//测温湿度，测温度，命令字为0xF5(TP)；测湿度，命令字为0xF3(R
+             -H)
+  72          {
+  73   1        u8 datH,datL;
+  74   1        u16 date=0;
+  75   1        
+  76   1        Sht10_Reset(); //传感器初始化，重置连接
+  77   1        WriteByte(0x1e);//软件复位传感器，状态寄存器的值也清空，命令为：00011110
+  78   1        
+  79   1        Start();//启动  
+  80   1        WriteByte(cmd);//发测量命令
+  81   1        delay_ms(400);//等待传感器测量完成，完成时传感器将SDA拉低
+  82   1        
+  83   1        datH=ReadByte(0); //读第一个字节（MSB）并应答
+  84   1        datL=ReadByte(1); //读第二个字节（LSB）发非应答 
+  85   1        date=datH<<8|datL;  //组合成14/12位数据
+  86   1      
+  87   1        if(cmd==TEMP) //温度转换 
+  88   1            date=date*0.01-40; 
+  89   1        
+  90   1        if(cmd==RHUM) //湿度转换
+  91   1        { 
+  92   2          date=0.0405*date-(2.8E-6)*date*date-4;  
+  93   2          if(date > 100 ) date = 100;
+  94   2        }   
+  95   1        return  date;
+  96   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    364    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

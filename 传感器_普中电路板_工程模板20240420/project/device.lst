@@ -1,0 +1,39 @@
+C51 COMPILER V9.60.0.0   DEVICE                                                            04/21/2024 07:52:10 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE DEVICE
+OBJECT MODULE PLACED IN .\output\device.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE app\device.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\app) DEBUG OBJECTEXTEND P
+                    -RINT(.\device.lst) TABS(2) OBJECT(.\output\device.obj)
+
+line level    source
+
+   1          #include "device.h"
+   2          u8 count_100ms=0;//闪烁间隔时间
+   3          bit flash=0;//闪烁标记
+   4          bit buzzer=0;//蜂鸣器报警标记
+   5          u8  count=0;
+   6          void led_ctrl(u8 pin,u8 sta)//指定灯亮或灭，pin(1、2、6、7、8号灯)，sta(ON、OFF)
+   7          {
+   8   1        switch(sta)
+   9   1        {
+  10   2          case 1: if(pin)   P2=P2&(~(0x01<<(pin-1)));//指定位置0，灯亮
+  11   2                  break;
+  12   2          case 0: if(pin)   P2=P2|(0x01<<(pin-1));//指定位置1，灯灭
+  13   2                  break;
+  14   2        }
+  15   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     43    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      2    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

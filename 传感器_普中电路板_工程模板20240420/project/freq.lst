@@ -1,0 +1,40 @@
+C51 COMPILER V9.60.0.0   FREQ                                                              04/23/2024 07:59:27 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE FREQ
+OBJECT MODULE PLACED IN .\output\freq.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE app\freq.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\app) DEBUG OBJECTEXTEND PRI
+                    -NT(.\freq.lst) TABS(2) OBJECT(.\output\freq.obj)
+
+line level    source
+
+   1          #include "freq.h"
+   2          //测量频率时不能使用串口，两者都要使用定时器T1，存在冲突
+   3          //在定时器1的中断中每隔一秒测量一次，根据条件进行处理和显示
+   4          //测量频率时需要用到P35，也会与矩阵按键产生冲突，所以应采用独立按键
+   5          //u16 count_1s=0;//频率测量定时
+   6          u16 freq=0;//频率值
+   7          void timer1_init_freq()//初始化定时器1计数
+   8          {
+   9   1        TMOD &= 0x0F;//设置定时器1为工作模式：软启动、计数、模式1(16位)
+  10   1        TMOD |= 0x50; 
+  11   1        TL1 = 0x00;//设置定时器1计数初值
+  12   1        TH1 = 0x00;   
+  13   1        TF1 = 0;//清除定时器1中断标记TF1
+  14   1        ET1 = 0;//禁止定时器1中断
+  15   1        TR1 = 1;//定时器1开始计数
+  16   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     18    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

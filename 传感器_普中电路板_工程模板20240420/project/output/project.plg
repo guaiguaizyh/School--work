@@ -1,0 +1,41 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Administrator\Desktop\传感器电路板模块化程序设计20211118\传感器电路板模块化程序设计20211117\普中电路板\project\project.uvproj
+Project File Date:  11/15/2021
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling main.c...
+APP\MAIN.C(6): warning C280: 'buf': unreferenced local variable
+APP\MAIN.C(7): warning C280: 'temp': unreferenced local variable
+compiling delay.c...
+compiling rgb_led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_S?DELAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_MS?DELAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_RGBLED_SHOW?RGB_LED
+Program Size: data=46.0 xdata=0 code=538
+creating hex file from ".\output\project"...
+".\output\project" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling main.c...
+compiling delay.c...
+compiling rgb_led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_S?DELAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_MS?DELAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_RGBLED_SHOW?RGB_LED
+Program Size: data=22.0 xdata=0 code=538
+creating hex file from ".\output\project"...
+".\output\project" - 0 Error(s), 3 Warning(s).
