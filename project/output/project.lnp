@@ -1,7 +1,0 @@
-".\output\STARTUP.obj",
-".\output\main.obj",
-".\output\delay.obj",
-".\output\ds18b20.obj",
-".\output\smg.obj" 
-TO ".\output\project" 
-PRINT(".\project.m51")
