@@ -1,8 +1,0 @@
-"STARTUP.obj",
-"main.obj",
-"ds18b20.obj",
-"1602.obj",
-"LED.obj",
-"ST7920.obj",
-"uart.obj" 
-TO "project" 
