@@ -1,6 +1,0 @@
-"STARTUP.obj",
-"1602.obj",
-"main.obj",
-"I2C.obj",
-"PCF8591.obj" 
-TO "project" 
