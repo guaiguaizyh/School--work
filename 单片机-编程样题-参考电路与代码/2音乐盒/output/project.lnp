@@ -1,0 +1,7 @@
+".\output\STARTUP.obj",
+".\output\main.obj",
+".\output\delay.obj",
+".\output\button.obj",
+".\output\beep.obj" 
+TO ".\output\project" 
+PRINT(".\output\project.m51")

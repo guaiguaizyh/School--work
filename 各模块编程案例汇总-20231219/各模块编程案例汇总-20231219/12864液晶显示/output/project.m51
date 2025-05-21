@@ -1,0 +1,462 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        12/19/2023  12:20:10  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE .\output\STARTUP.obj, .\output\main.obj, .\output\delay.obj, .\output\ST7920.obj TO .\output\pr
+>> oject PRINT (.\output\project.m51)
+
+
+MEMORY MODEL: SMALL WITH FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED:
+  .\output\STARTUP.obj (?C_STARTUP)
+  .\output\main.obj (MAIN)
+  .\output\delay.obj (DELAY)
+  .\output\ST7920.obj (ST7920)
+  C:\KEIL\C51\LIB\C51FPS.LIB (PRINTF)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FPROUND)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FPCONVERT)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FPADD)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FPMUL)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FPDIV)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FTNPWR)
+  C:\KEIL\C51\LIB\C51FPS.LIB (?C?FPGETOPN)
+  C:\KEIL\C51\LIB\C51S.LIB (?C_INIT)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CLDPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CLDOPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CSTPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CSTOPTR)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?IMUL)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?PLDIIDATA)
+  C:\KEIL\C51\LIB\C51S.LIB (?C?CCASE)
+  C:\KEIL\C51\LIB\C51S.LIB (PUTCHAR)
+
+
+LINK MAP OF MODULE:  .\output\project (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0002H     UNIT         ?DT?ST7920
+                    000AH     0016H                  *** GAP ***
+            BIT     0020H.0   0001H.1   UNIT         _BIT_GROUP_
+                    0021H.1   0000H.7                *** GAP ***
+            DATA    0022H     003CH     UNIT         _DATA_GROUP_
+            IDATA   005EH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     054CH     UNIT         ?C?LIB_CODE
+            CODE    054FH     046FH     UNIT         ?PR?PRINTF?PRINTF
+            CODE    09BEH     009AH     UNIT         ?PR?MAIN?MAIN
+            CODE    0A58H     008CH     UNIT         ?C_C51STARTUP
+            CODE    0AE4H     0063H     UNIT         ?PR?_NUM_HS_TO_FS?ST7920
+            CODE    0B47H     0050H     UNIT         ?PR?_ST7920_STR?ST7920
+            CODE    0B97H     002DH     UNIT         ?PR?_DELAY_S?DELAY
+            CODE    0BC4H     0027H     UNIT         ?PR?PUTCHAR?PUTCHAR
+            CODE    0BEBH     0026H     UNIT         ?PR?ST7920_INIT?ST7920
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/19/2023  12:20:10  PAGE 2
+
+
+            CODE    0C11H     0024H     UNIT         ?PR?_ST7920_POS?ST7920
+            CODE    0C35H     0020H     UNIT         ?PR?_DELAY_MS?DELAY
+            CODE    0C55H     001CH     UNIT         ?PR?_LCD_WCMD?ST7920
+            CODE    0C71H     001AH     UNIT         ?PR?_LCD_WDAT?ST7920
+            CODE    0C8BH     0014H     UNIT         ?PR?LCD_BUSY?ST7920
+            CODE    0C9FH     0012H     UNIT         ?PR?ST7920_CLEAR?ST7920
+            CODE    0CB1H     0011H     UNIT         ?CO?MAIN
+            CODE    0CC2H     000BH     UNIT         ?PR?_DELAY_10XUS?DELAY
+            CODE    0CCDH     0007H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   .\output\project (?C_STARTUP)
+
+
+SEGMENT                             BIT_GROUP          DATA_GROUP 
+  +--> CALLED SEGMENT            START    LENGTH     START    LENGTH
+--------------------------------------------------------------------
+?C_C51STARTUP                    -----    -----      -----    -----
+  +--> ?PR?MAIN?MAIN
+  +--> ?C_INITSEG
+
+?PR?MAIN?MAIN                    -----    -----      0022H    0020H
+  +--> ?PR?ST7920_INIT?ST7920
+  +--> ?CO?MAIN
+  +--> ?PR?_ST7920_STR?ST7920
+  +--> ?PR?PRINTF?PRINTF
+  +--> ?PR?_NUM_HS_TO_FS?ST7920
+
+?PR?ST7920_INIT?ST7920           -----    -----      -----    -----
+  +--> ?PR?_LCD_WCMD?ST7920
+  +--> ?PR?_DELAY_MS?DELAY
+
+?PR?_LCD_WCMD?ST7920             -----    -----      -----    -----
+  +--> ?PR?LCD_BUSY?ST7920
+
+?PR?LCD_BUSY?ST7920              0020H.0  0000H.1    -----    -----
+
+?PR?_ST7920_STR?ST7920           -----    -----      0042H    0005H
+  +--> ?PR?_ST7920_POS?ST7920
+  +--> ?PR?_LCD_WDAT?ST7920
+
+?PR?_ST7920_POS?ST7920           -----    -----      -----    -----
+  +--> ?PR?_LCD_WCMD?ST7920
+
+?PR?_LCD_WDAT?ST7920             -----    -----      -----    -----
+  +--> ?PR?LCD_BUSY?ST7920
+
+?PR?PRINTF?PRINTF                0020H.0  0001H.1    0042H    001CH
+  +--> ?PR?PUTCHAR?PUTCHAR
+
+?PR?_NUM_HS_TO_FS?ST7920         -----    -----      0042H    0006H
+
+
+
+SYMBOL TABLE OF MODULE:  .\output\project (?C_STARTUP)
+
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/19/2023  12:20:10  PAGE 3
+
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:0A58H         SEGMENT       ?C_C51STARTUP
+  I:005EH         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:0A5BH         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:0A58H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:0A58H         LINE#         133
+  C:0A5AH         LINE#         134
+  C:0A5BH         LINE#         135
+  C:0A5CH         LINE#         136
+  C:0A5EH         LINE#         185
+  C:0A61H         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:09BEH         PUBLIC        main
+  -------         PROC          MAIN
+  -------         DO            
+  D:0022H         SYMBOL        buf1
+  D:002BH         SYMBOL        buf2
+  D:003CH         SYMBOL        y
+  D:0040H         SYMBOL        x
+  -------         ENDDO         
+  C:09BEH         LINE#         3
+  C:09BEH         LINE#         4
+  C:09BEH         LINE#         6
+  C:09CAH         LINE#         7
+  C:09D0H         LINE#         9
+  C:09D3H         LINE#         10
+  C:09E0H         LINE#         12
+  C:09F8H         LINE#         13
+  C:0A0AH         LINE#         14
+  C:0A18H         LINE#         16
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/19/2023  12:20:10  PAGE 4
+
+
+  C:0A36H         LINE#         17
+  C:0A48H         LINE#         18
+  C:0A56H         LINE#         19
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        DELAY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:0CC2H         PUBLIC        _delay_10xus
+  C:0C35H         PUBLIC        _delay_ms
+  C:0B97H         PUBLIC        _delay_s
+  -------         PROC          _DELAY_S
+  D:0001H         SYMBOL        x
+  -------         DO            
+  D:0002H         SYMBOL        i
+  D:0006H         SYMBOL        j
+  -------         ENDDO         
+  C:0B97H         LINE#         3
+  C:0B99H         LINE#         4
+  C:0B99H         LINE#         6
+  C:0BAEH         LINE#         7
+  C:0BC3H         LINE#         8
+  -------         ENDPROC       _DELAY_S
+  -------         PROC          _DELAY_MS
+  D:0006H         SYMBOL        x
+  -------         DO            
+  D:0004H         SYMBOL        i
+  D:0002H         SYMBOL        j
+  -------         ENDDO         
+  C:0C35H         LINE#         9
+  C:0C35H         LINE#         10
+  C:0C35H         LINE#         12
+  C:0C3FH         LINE#         13
+  C:0C54H         LINE#         14
+  -------         ENDPROC       _DELAY_MS
+  -------         PROC          _DELAY_10XUS
+  D:0006H         SYMBOL        x
+  C:0CC2H         LINE#         15
+  C:0CC2H         LINE#         16
+  C:0CC2H         LINE#         17
+  C:0CCCH         LINE#         18
+  -------         ENDPROC       _DELAY_10XUS
+  -------         ENDMOD        DELAY
+
+  -------         MODULE        ST7920
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:00B0H         PUBLIC        P3
+  C:0AE4H         PUBLIC        _num_hs_to_fs
+  B:00B0H.7       PUBLIC        LCD_PSB
+  C:0C11H         PUBLIC        _ST7920_pos
+  C:0B47H         PUBLIC        _ST7920_str
+  D:0008H         PUBLIC        col
+  C:0C55H         PUBLIC        _lcd_wcmd
+  C:0C9FH         PUBLIC        ST7920_Clear
+  C:0C71H         PUBLIC        _lcd_wdat
+  B:00B0H.6       PUBLIC        LCD_EN
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/19/2023  12:20:10  PAGE 5
+
+
+  B:00B0H.4       PUBLIC        LCD_RS
+  D:0009H         PUBLIC        row
+  C:0C8BH         PUBLIC        lcd_busy
+  B:00B0H.5       PUBLIC        LCD_RW
+  C:0BEBH         PUBLIC        ST7920_Init
+  -------         PROC          LCD_BUSY
+  -------         DO            
+  B:0020H.0       SYMBOL        result
+  -------         ENDDO         
+  C:0C8BH         LINE#         18
+  C:0C8BH         LINE#         19
+  C:0C8BH         LINE#         21
+  C:0C8DH         LINE#         22
+  C:0C8FH         LINE#         23
+  C:0C91H         LINE#         24
+  C:0C95H         LINE#         25
+  C:0C9AH         LINE#         26
+  C:0C9CH         LINE#         27
+  C:0C9EH         LINE#         28
+  -------         ENDPROC       LCD_BUSY
+  -------         PROC          _LCD_WCMD
+  D:0007H         SYMBOL        cmd
+  C:0C55H         LINE#         33
+  C:0C55H         LINE#         34
+  C:0C55H         LINE#         35
+  C:0C5AH         LINE#         36
+  C:0C5CH         LINE#         37
+  C:0C5EH         LINE#         38
+  C:0C60H         LINE#         39
+  C:0C61H         LINE#         40
+  C:0C62H         LINE#         41
+  C:0C64H         LINE#         42
+  C:0C68H         LINE#         43
+  C:0C6AH         LINE#         44
+  C:0C6EH         LINE#         45
+  C:0C70H         LINE#         46
+  -------         ENDPROC       _LCD_WCMD
+  -------         PROC          _LCD_WDAT
+  D:0007H         SYMBOL        dat
+  C:0C71H         LINE#         51
+  C:0C71H         LINE#         52
+  C:0C71H         LINE#         53
+  C:0C76H         LINE#         54
+  C:0C78H         LINE#         55
+  C:0C7AH         LINE#         56
+  C:0C7CH         LINE#         57
+  C:0C7EH         LINE#         58
+  C:0C82H         LINE#         59
+  C:0C84H         LINE#         60
+  C:0C88H         LINE#         61
+  C:0C8AH         LINE#         62
+  -------         ENDPROC       _LCD_WDAT
+  -------         PROC          ST7920_INIT
+  C:0BEBH         LINE#         66
+  C:0BEBH         LINE#         67
+  C:0BEBH         LINE#         69
+  C:0BEDH         LINE#         73
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/19/2023  12:20:10  PAGE 6
+
+
+  C:0BF2H         LINE#         74
+  C:0BF9H         LINE#         75
+  C:0BFEH         LINE#         76
+  C:0C05H         LINE#         77
+  C:0C0AH         LINE#         78
+  -------         ENDPROC       ST7920_INIT
+  -------         PROC          _ST7920_POS
+  D:0007H         SYMBOL        X
+  D:0005H         SYMBOL        Y
+  -------         DO            
+  D:0007H         SYMBOL        pos
+  D:0006H         SYMBOL        a
+  -------         ENDDO         
+  C:0C11H         LINE#         83
+  C:0C11H         LINE#         84
+  C:0C11H         LINE#         86
+  C:0C13H         LINE#         87
+  C:0C15H         LINE#         88
+  C:0C18H         LINE#         89
+  C:0C1CH         LINE#         90
+  C:0C1FH         LINE#         91
+  C:0C23H         LINE#         92
+  C:0C26H         LINE#         93
+  C:0C2AH         LINE#         94
+  C:0C2DH         LINE#         95
+  C:0C2FH         LINE#         96
+  C:0C32H         LINE#         97
+  -------         ENDPROC       _ST7920_POS
+  -------         PROC          _ST7920_STR
+  D:0042H         SYMBOL        p
+  D:0007H         SYMBOL        x
+  D:0046H         SYMBOL        y
+  -------         DO            
+  D:0004H         SYMBOL        i
+  -------         ENDDO         
+  C:0B47H         LINE#         102
+  C:0B4FH         LINE#         103
+  C:0B4FH         LINE#         105
+  C:0B54H         LINE#         106
+  C:0B56H         LINE#         107
+  C:0B67H         LINE#         108
+  C:0B67H         LINE#         109
+  C:0B6AH         LINE#         110
+  C:0B6BH         LINE#         111
+  C:0B7DH         LINE#         112
+  C:0B7EH         LINE#         113
+  C:0B80H         LINE#         114
+  C:0B94H         LINE#         116
+  C:0B96H         LINE#         117
+  -------         ENDPROC       _ST7920_STR
+  -------         PROC          ST7920_CLEAR
+  C:0C9FH         LINE#         119
+  C:0C9FH         LINE#         120
+  C:0C9FH         LINE#         121
+  C:0CA4H         LINE#         122
+  C:0CABH         LINE#         123
+  -------         ENDPROC       ST7920_CLEAR
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/19/2023  12:20:10  PAGE 7
+
+
+  -------         PROC          _NUM_HS_TO_FS
+  D:0042H         SYMBOL        half_str
+  D:0045H         SYMBOL        full_str
+  -------         DO            
+  D:0007H         SYMBOL        i
+  D:0006H         SYMBOL        j
+  -------         ENDDO         
+  C:0AE4H         LINE#         126
+  C:0AEAH         LINE#         127
+  C:0AEAH         LINE#         129
+  C:0AECH         LINE#         130
+  C:0AEDH         LINE#         131
+  C:0AFDH         LINE#         132
+  C:0AFDH         LINE#         133
+  C:0B10H         LINE#         134
+  C:0B34H         LINE#         135
+  C:0B36H         LINE#         136
+  -------         ENDPROC       _NUM_HS_TO_FS
+  -------         ENDMOD        ST7920
+
+  -------         MODULE        PRINTF
+  D:0042H         PUBLIC        ?_PRINTF?BYTE
+  D:0042H         PUBLIC        ?_SPRINTF?BYTE
+  C:05B1H         PUBLIC        _PRINTF
+  C:05ABH         PUBLIC        _SPRINTF
+  -------         ENDMOD        PRINTF
+
+  -------         MODULE        ?C?FPROUND
+  C:0003H         PUBLIC        ?C?FPROUND
+  -------         ENDMOD        ?C?FPROUND
+
+  -------         MODULE        ?C?FPCONVERT
+  C:0032H         PUBLIC        ?C?FPCONVERT
+  -------         ENDMOD        ?C?FPCONVERT
+
+  -------         MODULE        ?C?FPADD
+  C:013CH         PUBLIC        ?C?FPADD
+  C:0138H         PUBLIC        ?C?FPSUB
+  -------         ENDMOD        ?C?FPADD
+
+  -------         MODULE        ?C?FPMUL
+  C:022DH         PUBLIC        ?C?FPMUL
+  -------         ENDMOD        ?C?FPMUL
+
+  -------         MODULE        ?C?FPDIV
+  C:0336H         PUBLIC        ?C?FPDIV
+  -------         ENDMOD        ?C?FPDIV
+
+  -------         MODULE        ?C?FTNPWR
+  C:0403H         PUBLIC        ?C?FTNPWR
+  -------         ENDMOD        ?C?FTNPWR
+
+  -------         MODULE        ?C?CLDPTR
+  C:048DH         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?CLDOPTR
+BL51 BANKED LINKER/LOCATER V6.22                                                      12/19/2023  12:20:10  PAGE 8
+
+
+  C:04A6H         PUBLIC        ?C?CLDOPTR
+  -------         ENDMOD        ?C?CLDOPTR
+
+  -------         MODULE        ?C?CSTPTR
+  C:04D3H         PUBLIC        ?C?CSTPTR
+  -------         ENDMOD        ?C?CSTPTR
+
+  -------         MODULE        ?C?CSTOPTR
+  C:04E5H         PUBLIC        ?C?CSTOPTR
+  -------         ENDMOD        ?C?CSTOPTR
+
+  -------         MODULE        ?C?IMUL
+  C:0507H         PUBLIC        ?C?IMUL
+  -------         ENDMOD        ?C?IMUL
+
+  -------         MODULE        ?C?PLDIIDATA
+  C:0519H         PUBLIC        ?C?PLDIIDATA
+  -------         ENDMOD        ?C?PLDIIDATA
+
+  -------         MODULE        ?C?CCASE
+  C:0529H         PUBLIC        ?C?CCASE
+  -------         ENDMOD        ?C?CCASE
+
+  -------         MODULE        PUTCHAR
+  C:0BC4H         PUBLIC        _PUTCHAR
+  -------         ENDMOD        PUTCHAR
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_S?DELAY
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_10XUS?DELAY
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ST7920_CLEAR?ST7920
+
+Program Size: data=72.1 xdata=0 code=3284
+LINK/LOCATE RUN COMPLETE.  3 WARNING(S),  0 ERROR(S)

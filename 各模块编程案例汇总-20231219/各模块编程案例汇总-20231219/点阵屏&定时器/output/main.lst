@@ -1,0 +1,33 @@
+C51 COMPILER V9.00   MAIN                                                                  12/19/2023 12:38:34 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\output\main.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE app\main.c BROWSE INCDIR(.\app;.\drive) DEBUG OBJECTEXTEND PRINT(.\output\m
+                    -ain.lst) OBJECT(.\output\main.obj)
+
+line level    source
+
+   1          #include <config.h>
+   2          #include <matrix8X8.h>
+   3          #include <timer.h>
+   4          void main()
+   5          {
+   6   1              Timer0_Int();
+   7   1              while(1)
+   8   1                      matrix8X8(font[x]);
+   9   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     24    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

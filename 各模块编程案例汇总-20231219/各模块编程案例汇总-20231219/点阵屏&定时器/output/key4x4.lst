@@ -1,0 +1,107 @@
+C51 COMPILER V9.00   KEY4X4                                                                12/19/2023 11:09:46 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE KEY4X4
+OBJECT MODULE PLACED IN .\output\key4x4.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE drive\key4x4.c BROWSE INCDIR(.\app;.\drive) DEBUG OBJECTEXTEND PRINT(.\outp
+                    -ut\key4x4.lst) OBJECT(.\output\key4x4.obj)
+
+line level    source
+
+   1          #include <key4x4.h>
+   2          #define key_data P2 //宏定义4*4矩阵按键行列引脚
+   3          u8 keyval_4X3[]="123456789*0#"; 
+   4          u8 keyval_4X4[]="789/456*123-c0=+"; 
+   5          u8 key_scan_4X4( )//4*4矩阵按键扫描函数，返回按键号（0-16），16表示无按键按下
+   6          {
+   7   1              u8 i,temp,vol,keyvalue=16;
+   8   1              //先检测是否有键按下
+   9   1              key_data=0xf0;
+  10   1              temp=key_data;
+  11   1              if((temp&0xf0)!=0xf0)
+  12   1              {
+  13   2                      //去抖
+  14   2                      delay_ms(10);
+  15   2                      key_data=0xf0;
+  16   2                      temp=key_data;          
+  17   2                      if((temp&0xf0)!=0xf0)
+  18   2                      {
+  19   3                               //确定有键后，逐行扫描哪个键按下
+  20   3                               vol=0xfe;
+  21   3                               for(i=0;i<4;i++)
+  22   3                               {
+  23   4                                      key_data=vol;
+  24   4                                      temp=key_data;
+  25   4                                      switch(temp&0xf0)
+  26   4                                      {
+  27   5                                              case 0xe0:keyvalue=4*i+0;break;
+  28   5                                              case 0xd0:keyvalue=4*i+1;break;
+  29   5                                              case 0xb0:keyvalue=4*i+2;break;
+  30   5                                          case 0x70:keyvalue=4*i+3;break;             
+  31   5                                      }
+  32   4                                      vol=_crol_(vol,1);
+  33   4                               }
+  34   3                               //等待按键释放
+  35   3                               do{
+  36   4                               key_data=0xf0;
+  37   4                               temp=key_data;
+  38   4                              }while((temp&0xf0)!=0xf0);
+  39   3                      }
+  40   2              }
+  41   1              //返回按键值
+  42   1              return  keyvalue;
+  43   1      }
+  44          u8 key_scan_4X3( )//4*3矩阵按键扫描函数，返回按键号（0-11），12表示无按键按下
+  45          {
+  46   1              u8 i,temp,vol,keyvalue=12;
+  47   1              //先检测是否有键按下
+  48   1              key_data=0xf0;
+  49   1              temp=key_data;
+  50   1              if((temp&0xf0)!=0xf0)
+  51   1              {
+  52   2                      //去抖
+  53   2                      delay_ms(10);
+  54   2                      key_data=0xf0;
+C51 COMPILER V9.00   KEY4X4                                                                12/19/2023 11:09:46 PAGE 2   
+
+  55   2                      temp=key_data;          
+  56   2                      if((temp&0xf0)!=0xf0)
+  57   2                      {
+  58   3                               //确定有键后，逐行扫描哪个键按下
+  59   3                               vol=0xfe;
+  60   3                               for(i=0;i<4;i++)
+  61   3                               {
+  62   4                                      key_data=vol;
+  63   4                                      temp=key_data;
+  64   4                                      switch(temp&0xf0)
+  65   4                                      {
+  66   5                                              case 0xe0:keyvalue=3*i+0;break;
+  67   5                                              case 0xd0:keyvalue=3*i+1;break;
+  68   5                                              case 0xb0:keyvalue=3*i+2;break;         
+  69   5                                      }
+  70   4                                      vol=_crol_(vol,1);
+  71   4                               }
+  72   3                               //等待按键释放
+  73   3                               do{
+  74   4                               key_data=0xf0;
+  75   4                               temp=key_data;
+  76   4                              }while((temp&0xf0)!=0xf0);
+  77   3                      }
+  78   2              }
+  79   1              //返回按键值
+  80   1              return  keyvalue;
+  81   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    243    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     30       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

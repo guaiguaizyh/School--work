@@ -1,0 +1,55 @@
+C51 COMPILER V9.00   TIMER                                                                 12/19/2023 11:09:47 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE TIMER
+OBJECT MODULE PLACED IN .\output\timer.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE drive\timer.c BROWSE INCDIR(.\app;.\drive) DEBUG OBJECTEXTEND PRINT(.\outpu
+                    -t\timer.lst) OBJECT(.\output\timer.obj)
+
+line level    source
+
+   1          #include <timer.h>
+   2          #define NUM (65536-50000) //每个50ms中断一次，晶振12MHz
+   3          u8 x=0;
+   4          void Timer0_Int()//定时器0初始化
+   5          {
+   6   1              //设置工作方式
+   7   1              TMOD=TMOD&0xf0;
+   8   1              TMOD=TMOD|0x01; //T0软启动、定时器、工作方式1
+   9   1              //设置计数初值
+  10   1              TH0=NUM/256;
+  11   1              TL0=NUM%256;
+  12   1              //启动定时
+  13   1              TR0=1;
+  14   1              //中断允许
+  15   1              EA=1;//允许CPU响应中断
+  16   1              ET0=1;//允许定时器T0中断
+  17   1      }
+  18          void Timer0() interrupt 1  //定时器0中断服务函数
+  19          {
+  20   1              static u16 count=0;
+  21   1              //重装初值
+  22   1              TH0=NUM/256;
+  23   1              TL0=NUM%256;
+  24   1              count++;//每隔50ms中断一次
+  25   1              if(count==20) //中断20次即为1秒，去做相应的处理
+  26   1              {
+  27   2                      count=0;
+  28   2              //在此补充中断服务函数代码
+  29   2       
+  30   2              }
+  31   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     48    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      3    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

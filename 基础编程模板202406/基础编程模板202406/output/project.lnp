@@ -1,0 +1,11 @@
+".\output\STARTUP.obj",
+".\output\led8.obj",
+".\output\main.obj",
+".\output\button.obj",
+".\output\beep.obj",
+".\output\delay.obj",
+".\output\smg1.obj",
+".\output\timer.obj",
+".\output\1602.obj" 
+TO ".\output\project" 
+PRINT(".\output\project.m51")

@@ -1,0 +1,44 @@
+C51 COMPILER V9.59.0.0   SMG1                                                              07/05/2024 02:30:51 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE SMG1
+OBJECT MODULE PLACED IN .\output\smg1.obj
+COMPILER INVOKED BY: C:\Users\86157\Desktop\qianrushi\keil\C51\BIN\C51.EXE drive\smg1.c OPTIMIZE(8,SPEED) BROWSE INCDIR(
+                    -.\app;.\drive) DEBUG OBJECTEXTEND PRINT(.\output\smg1.lst) TABS(2) OBJECT(.\output\smg1.obj)
+
+line level    source
+
+   1          #include <smg1.h>
+   2          
+   3          u8 code table[]={
+   4          0x3f,0x06,0x5b,0x4f,
+   5          0x66,0x6d,0x7d,0x07,
+   6          0x7f,0x6f,0x77,0x7c,
+   7          0x39,0x5e,0x79,0x71,0x00};
+   8          
+   9          //数码管显示数字函数
+  10          //port_no为数码管所接端口编号，0代表P0，1代表P1，2代表P2,3代表P3
+  11          //n为需要显示的数字
+  12          void smg_dis(u8 port_no, u8 n) 
+  13          {
+  14   1        switch(port_no){
+  15   2          case 0: P0=table[n]; break;
+  16   2          case 1: P1=table[n]; break;
+  17   2          case 2: P2=table[n]; break;
+  18   2          default: P3=table[n];
+  19   2        }
+  20   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     43    ----
+   CONSTANT SIZE    =     17    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

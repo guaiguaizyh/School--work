@@ -1,0 +1,45 @@
+C51 COMPILER V9.00   INTR                                                                  12/19/2023 11:09:46 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE INTR
+OBJECT MODULE PLACED IN .\output\intr.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE drive\intr.c BROWSE INCDIR(.\app;.\drive) DEBUG OBJECTEXTEND PRINT(.\output
+                    -\intr.lst) OBJECT(.\output\intr.obj)
+
+line level    source
+
+   1          #include <intr.h>
+   2          void INTR_Int()//外部中断初始化
+   3          {
+   4   1              //设置外部中断触发方式
+   5   1              IT0=1;//下降沿出发
+   6   1              IT1=1;//下降沿出发
+   7   1              //中断允许
+   8   1              EA=1;//允许CPU响应中断
+   9   1              EX0=1;//允许外部中断0
+  10   1              EX1=1;//允许外部中断1
+  11   1      }
+  12          void Intr0() interrupt 0  //外部中断0中断服务函数
+  13          {
+  14   1      //在此补充中断服务函数代码
+  15   1      
+  16   1      }
+  17          void Intr1() interrupt 2  //外部中断1中断服务函数
+  18          {
+  19   1      //在此补充中断服务函数代码
+  20   1      }
+  21                                                      
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     13    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

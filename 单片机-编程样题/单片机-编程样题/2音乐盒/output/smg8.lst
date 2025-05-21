@@ -1,0 +1,76 @@
+C51 COMPILER V9.00   SMG8                                                                  12/19/2023 11:55:31 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE SMG8
+OBJECT MODULE PLACED IN .\output\smg8.obj
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE drive\smg8.c BROWSE INCDIR(.\app;.\drive) DEBUG OBJECTEXTEND PRINT(.\output
+                    -\smg8.lst) OBJECT(.\output\smg8.obj)
+
+line level    source
+
+   1          #include <smg8.h>
+   2          #define smg_data P0 //宏定义数码管段码/位码引脚
+   3          sbit DX=P2^0;//定义段码锁存器锁存引脚
+   4          sbit WX=P2^1;//定义位码锁存器锁存引脚
+   5          void smg_dis_str(char *f) //数码管显示字符串（左对齐，从左往右显示） 
+   6          {
+   7   1              u8 t=0xfe;//位码
+   8   1              u8 i=0;//字符串下标
+   9   1              u8 n=strlen(f);//字符串长度
+  10   1              u8 temp;
+  11   1              while(i<n)
+  12   1              {       
+  13   2                      smg_data=0xff; //位码消影
+  14   2                      WX=1;//允许更新位码
+  15   2                      smg_data=t;//更新位码
+  16   2                      WX=0;//锁存位码
+  17   2                         
+  18   2                      smg_data=0x00; //段码消影
+  19   2                      DX=1;//允许更新段码
+  20   2                      switch(f[i]) //设置段码
+  21   2                      {       
+  22   3                              //共阴数码管编码,根据需要添加要显示的字符的编码
+  23   3                              case '0':temp=0x3f;break;
+  24   3                              case '1':temp=0x06;break;
+  25   3                              case '2':temp=0x5b;break;
+  26   3                              case '3':temp=0x4f;break;
+  27   3                              case '4':temp=0x66;break;
+  28   3                              case '5':temp=0x6d;break;
+  29   3                              case '6':temp=0x7d;break;
+  30   3                              case '7':temp=0x07;break;
+  31   3                              case '8':temp=0x7f;break;
+  32   3                              case '9':temp=0x6f;break;
+  33   3                              case 'a':temp=0x77;break;
+  34   3                              case 'b':temp=0x7c;break;
+  35   3                              case 'c':temp=0x39;break;
+  36   3                              case 'd':temp=0x5e;break;
+  37   3                              case 'e':temp=0x79;break;
+  38   3                              case 'f':temp=0x71;break;
+  39   3                              case '-':temp=0x40;break;
+  40   3                              case ' ':temp=0x00;break;                        
+  41   3                      } 
+  42   2                      if(f[i+1]=='.') {i++;temp=temp+0x80;}
+  43   2                      smg_data=temp;
+  44   2                      DX=0;//锁存段码
+  45   2                                                 
+  46   2                  i++; //显示下一位
+  47   2                      t=_crol_(t,1);//下一位的位选信号
+  48   2                      delay_ms(3);//延时
+  49   2              }
+  50   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    263    ----
+C51 COMPILER V9.00   SMG8                                                                  12/19/2023 11:55:31 PAGE 2   
+
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       7
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,38 @@
+C51 COMPILER V9.00   MAIN                                                                  06/22/2024 09:24:25 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\output\main.obj
+COMPILER INVOKED BY: d:\Keil\C51\BIN\C51.EXE app\main.c BROWSE INCDIR(.\app;.\drive) DEBUG OBJECTEXTEND PRINT(.\output\m
+                    -ain.lst) OBJECT(.\output\main.obj)
+
+line level    source
+
+   1          #include <config.h>
+   2          #include <button.h>
+   3          #include <beep.h>
+   4                  
+   5          void main()
+   6          {
+   7   1              while(1){
+   8   2                      if(Btn_Press()){
+   9   3                              while(1){
+  10   4                                      playmusic(Music2Meter, Music2TONE, Music2Len);
+  11   4                              }
+  12   3                      }
+  13   2              }       
+  14   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     32    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

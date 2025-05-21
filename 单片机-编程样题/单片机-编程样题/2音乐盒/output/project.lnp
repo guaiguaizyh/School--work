@@ -1,0 +1,5 @@
+".\output\STARTUP.obj",
+".\output\main.obj",
+".\output\delay.obj" 
+TO ".\output\project" 
+PRINT(".\output\project.m51")

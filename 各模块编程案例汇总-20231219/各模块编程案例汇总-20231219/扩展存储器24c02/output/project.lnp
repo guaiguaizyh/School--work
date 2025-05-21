@@ -1,0 +1,8 @@
+".\output\STARTUP.obj",
+".\output\main.obj",
+".\output\delay.obj",
+".\output\24C02.obj",
+".\output\1602.obj",
+".\output\I2C.obj" 
+TO ".\output\project" 
+PRINT(".\output\project.m51")

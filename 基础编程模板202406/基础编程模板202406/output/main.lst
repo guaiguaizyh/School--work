@@ -1,0 +1,587 @@
+C51 COMPILER V9.59.0.0   MAIN                                                              07/05/2024 02:30:50 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\output\main.obj
+COMPILER INVOKED BY: C:\Users\86157\Desktop\qianrushi\keil\C51\BIN\C51.EXE app\main.c OPTIMIZE(8,SPEED) BROWSE INCDIR(.\
+                    -app;.\drive) DEBUG OBJECTEXTEND PRINT(.\output\main.lst) TABS(2) OBJECT(.\output\main.obj)
+
+line level    source
+
+   1          //#include <config.h>
+   2          //#include <button.h>
+   3          //#include <smg1.h>//ʾ
+   4          //#include <timer.h>//
+   5          //#include <beep.h>//
+   6          //#include <1602.h>//
+   7          
+   8          
+   9          //开关灯
+  10          //sbit led=P2^1;
+  11          //void main()
+  12          //{
+  13          //  led=1;
+  14          //  while(1)
+  15          //  {
+  16          //    if(Btn_Press())
+  17          //    {led=~led;}
+  18          //  }
+  19          //}
+  20          
+  21          //走马灯
+  22          //void main()
+  23          //{
+  24          //  u8 mode=0; 
+  25          //  while(1)
+  26          //    {Led_Ctrl(mode);mode++;if(mode==2) mode=0;}
+  27          //}
+  28          
+  29          
+  30          //void main()
+  31          //{
+  32          //  while(1)
+  33          //  {Led_Ctrl(1);}
+  34          //}
+  35          
+  36          
+  37          //sbit red=P2^0;
+  38          //sbit yellow=P2^1;
+  39          //sbit green=P2^2;
+  40          //u8 t;
+  41          ////软件延时
+  42          //void main()
+  43          //{
+  44          //  u8 t=0;
+  45          //  while(1)
+  46          //  { 
+  47          //    //红灯亮
+  48          //    yellow=green=0;
+  49          //    for(t=0;t<9;t++)
+  50          //    { 
+  51          //      red=1;
+  52          //      if(t<6)
+  53          //      {
+  54          //        red=1;
+C51 COMPILER V9.59.0.0   MAIN                                                              07/05/2024 02:30:50 PAGE 2   
+
+  55          //        smg_dis(0,9-t);
+  56          //        delay_s(1); 
+  57          //      } 
+  58          //      else//闪烁
+  59          //      {
+  60          //        smg_dis(0,9-t);
+  61          //        red=0;
+  62          //        delay_ms(500);
+  63          //        red=1;
+  64          //        delay_ms(500);
+  65          //      }
+  66          //    }
+  67          //      //黄灯亮
+  68          //    red=green=0;
+  69          //    yellow=1;
+  70          //    for(t=3;t>0;t--)
+  71          //    {
+  72          //    smg_dis(0,t);
+  73          //    delay_s(1);
+  74          //    }
+  75          //    //绿灯亮
+  76          //    yellow=red=0;
+  77          //    for(t=0;t<9;t++)
+  78          //    { 
+  79          //      green=1;
+  80          //      if(t<6)
+  81          //      {
+  82          //        green=1;
+  83          //        smg_dis(0,9-t);
+  84          //        delay_s(1); 
+  85          //      } 
+  86          //      else//闪烁
+  87          //      {
+  88          //        smg_dis(0,9-t);
+  89          //        green=0;
+  90          //        delay_s(1);
+  91          //        green=1;
+  92          //        delay_s(1);
+  93          //      }
+  94          //    }
+  95          //    //黄灯亮
+  96          //    red=green=0;
+  97          //    yellow=1;
+  98          //    for(t=3;t>0;t--)
+  99          //    {
+ 100          //    smg_dis(0,t);
+ 101          //    delay_s(1);
+ 102          //    }
+ 103          //  }
+ 104          //}
+ 105          
+ 106          //sbit red=P2^0;
+ 107          //sbit yellow=P2^1;
+ 108          //sbit green=P2^2;
+ 109          
+ 110          //定时器延时,timer.c,smg1.c,
+ 111          //定时器补充中断函数
+ 112          /*    x++;
+ 113              if(x==9)
+ 114              {x=0;}*/
+ 115          //void main()
+ 116          //{
+C51 COMPILER V9.59.0.0   MAIN                                                              07/05/2024 02:30:50 PAGE 3   
+
+ 117          //  Timer0_Int();
+ 118          //  while(1)
+ 119          //  {
+ 120          //    //红灯亮9s 
+ 121          //    yellow=green=0;
+ 122          //    while(x<6)
+ 123          //    {
+ 124          //      red=1;
+ 125          //      smg_dis(0,9-x);
+ 126          //    }
+ 127          //    while(x>=6)
+ 128          //    {
+ 129          //      smg_dis(0,9-x);
+ 130          //      if(count<10)
+ 131          //      {
+ 132          //        red=0;
+ 133          //      }
+ 134          //      else
+ 135          //      {
+ 136          //        red=1;
+ 137          //      }
+ 138          //    }
+ 139          //    //黄灯3s
+ 140          //    while(x<3)
+ 141          //    {
+ 142          //      red=green=0;
+ 143          //      yellow=1;
+ 144          //      smg_dis(0,16);
+ 145          //    }
+ 146          //    x=0;
+ 147          //    //绿灯亮9s 
+ 148          //    yellow=red=0;
+ 149          //    while(x<6)
+ 150          //    {
+ 151          //      green=1;
+ 152          //      smg_dis(0,9-x);
+ 153          //    }
+ 154          //    while(x>=6)
+ 155          //    {
+ 156          //      smg_dis(0,9-x);
+ 157          //      if(count<10)
+ 158          //      {
+ 159          //        green=0;
+ 160          //      }
+ 161          //      else
+ 162          //      {
+ 163          //        green=1;
+ 164          //      }
+ 165          //    }
+ 166          //    //黄灯
+ 167          //    while(x<3)
+ 168          //    {
+ 169          //      red=green=0;
+ 170          //      yellow=1;
+ 171          //      smg_dis(0,16);
+ 172          //    }
+ 173          //    x=0;
+ 174          //  }
+ 175          //}
+ 176          
+ 177          
+ 178          //红绿灯 软件延时
+C51 COMPILER V9.59.0.0   MAIN                                                              07/05/2024 02:30:50 PAGE 4   
+
+ 179          //sbit red=P2^0;
+ 180          //sbit yellow=P2^1;
+ 181          //sbit green=P2^2;
+ 182          
+ 183          //void main()
+ 184          //{
+ 185          //  u8 t;
+ 186          //  while(1)
+ 187          //  {
+ 188          //    //红灯长亮6s
+ 189          //    yellow=0,green=0;
+ 190          //    for(t=9;t>0;t--)
+ 191          //    {
+ 192          //      red=1;
+ 193          //      if(t>3)
+ 194          //      {
+ 195          //        red=1;
+ 196          //        smg_dis(0,t);
+ 197          //        delay_s(1);
+ 198          //      }
+ 199          //      else if(t<=3)
+ 200          //      {
+ 201          //        smg_dis(0,t);
+ 202          //        delay_ms(500);
+ 203          //        red=0;
+ 204          //        delay_ms(500);
+ 205          //        red=1;
+ 206          //      }
+ 207          //    }
+ 208          //    
+ 209          //    //黄灯闪3秒
+ 210          //    red=0,green=0;
+ 211          //    for(t=3;t>0;t--)
+ 212          //    {
+ 213          //      smg_dis(0,t);
+ 214          //      yellow=1;
+ 215          //      delay_s(1);
+ 216          //    }
+ 217          //    
+ 218          //    
+ 219          //    //绿灯
+ 220          //    
+ 221          //    red=0,yellow=0;
+ 222          //    for(t=9;t>0;t--)
+ 223          //    {
+ 224          //      if(t>3)
+ 225          //      {
+ 226          //        green=1;
+ 227          //        smg_dis(0,t);
+ 228          //        delay_s(1);
+ 229          //      }
+ 230          //      else
+ 231          //      {
+ 232          //        smg_dis(0,t);
+ 233          //        delay_ms(500);
+ 234          //        green=1;
+ 235          //        delay_ms(500);
+ 236          //        green=0;
+ 237          //      }
+ 238          //    }
+ 239          //  }
+ 240          //}
+C51 COMPILER V9.59.0.0   MAIN                                                              07/05/2024 02:30:50 PAGE 5   
+
+ 241          
+ 242          //sbit red=P2^0;
+ 243          //sbit yellow=P2^1;
+ 244          //sbit green=P2^2;
+ 245          
+ 246          //void main()
+ 247          //{
+ 248          //  Timer0_Int();
+ 249          //  while(1)
+ 250          //  {
+ 251          //    //红灯
+ 252          //    yellow=0,green=0;
+ 253          //    while(x<6)
+ 254          //    {
+ 255          //      red=1;
+ 256          //      smg_dis(0,9-x);
+ 257          //    }
+ 258          //    while(x>=6)
+ 259          //    {
+ 260          //      smg_dis(0,9-x);
+ 261          //      delay_ms(500);
+ 262          //      red=0;
+ 263          //      delay_ms(500);
+ 264          //      red=1;
+ 265          //    }
+ 266          //    
+ 267          //    //黄灯亮
+ 268          //    while(x<3)
+ 269          //    {
+ 270          //      red=0,green=0;
+ 271          //      yellow=1;
+ 272          //      smg_dis(0,3-x);
+ 273          //    }
+ 274          //    
+ 275          //    yellow=0,red=0;
+ 276          //    while(x<6)
+ 277          //    {
+ 278          //      green=1;
+ 279          //      smg_dis(0,9-x);
+ 280          //    }
+ 281          //    while(x>=6)
+ 282          //    {
+ 283          //      smg_dis(0,9-x);
+ 284          //      delay_ms(500);
+ 285          //      green=0;
+ 286          //      delay_ms(500);
+ 287          //      green=1;
+ 288          //    }
+ 289          //      //黄灯亮
+ 290          //    while(x<3)
+ 291          //    {
+ 292          //      red=0,green=0;
+ 293          //      yellow=1;
+ 294          //      smg_dis(0,3-x);
+ 295          //    }
+ 296          //  }
+ 297          //}
+ 298          
+ 299          ////音乐盒
+ 300          //void main()
+ 301          //{
+ 302          //  LCD1602_Init( );
+C51 COMPILER V9.59.0.0   MAIN                                                              07/05/2024 02:30:50 PAGE 6   
+
+ 303          //  while(1)         
+ 304          //  {if(Btn_Press())
+ 305          //    {
+ 306          //       LCD1602_disstr("Happy birthday",0,0);
+ 307          //      LCD1602_disstr("To You",1,5);
+ 308          //      while(1){P1=0x00;delay_ms(500);P1=0xff;delay_ms(500);}
+ 309          //      //playmusic(Music2Meter,Music2TONE,32);
+ 310          //    }
+ 311          //  }
+ 312          //}
+ 313          
+ 314          
+ 315          
+ 316          //红绿灯
+ 317          //#include <config.h>
+ 318          //#include <smg1.h>
+ 319          //#include <delay.h>
+ 320          ////没有用到硬件延时
+ 321          
+ 322          //sbit red=P2^0;
+ 323          //sbit yellow=P2^1;
+ 324          //sbit green=P2^2;
+ 325          //void main()
+ 326          //{
+ 327          //  u8 t;//定义一个时间变量
+ 328          //  while(1)
+ 329          //  {
+ 330          //    //红灯亮九秒
+ 331          //    yellow=0;green=0;
+ 332          //    for(t=9;t>0;t--)
+ 333          //    {
+ 334          //      if(t>3)
+ 335          //      {
+ 336          //        red=1;
+ 337          //        smg_dis(0,t);
+ 338          //        delay_s(1);
+ 339          //      }
+ 340          //      else if(t<=3)
+ 341          //      {
+ 342          //        smg_dis(0,t);
+ 343          //        delay_ms(500);
+ 344          //        red=0;
+ 345          //        delay_ms(500);
+ 346          //        red=1;
+ 347          //      }
+ 348          //    }
+ 349          //    
+ 350          //    //黄灯
+ 351          //    green=0,red=0;
+ 352          //    for(t=3;t>0;t--)
+ 353          //    {
+ 354          //      smg_dis(0,t);
+ 355          //      delay_ms(500);
+ 356          //      yellow=1;
+ 357          //      delay_ms(500);
+ 358          //      yellow=0;
+ 359          //    }
+ 360          //    
+ 361          //    //绿灯
+ 362          //    yellow=0,red=0;
+ 363          //    for(t=9;t>0;t--)
+ 364          //    {
+C51 COMPILER V9.59.0.0   MAIN                                                              07/05/2024 02:30:50 PAGE 7   
+
+ 365          //      if(t>3)
+ 366          //      {
+ 367          //        green=1;
+ 368          //        smg_dis(0,t);
+ 369          //        delay_s(1);
+ 370          //      }
+ 371          //      else
+ 372          //      {
+ 373          //        smg_dis(0,t);
+ 374          //        delay_ms(500);
+ 375          //        green=0;
+ 376          //        delay_ms(500);
+ 377          //        green=1;        
+ 378          //      }
+ 379          //    }
+ 380          //    
+ 381          //    //再来一个黄灯闪烁
+ 382          //    red=0;green=0;
+ 383          //    for(t=3;t>0;t--)
+ 384          //    {
+ 385          //      smg_dis(0,t);
+ 386          //      delay_ms(500);
+ 387          //      yellow=1;
+ 388          //      delay_ms(500);
+ 389          //      yellow=0;
+ 390          //    }
+ 391          //  }
+ 392          //}
+ 393          
+ 394          
+ 395          ////红绿灯使用软件延时
+ 396          //#include <config.h>
+ 397          //#include <smg1.h>
+ 398          //#include <delay.h>
+ 399          //#include <timer.h>
+ 400          
+ 401          //sbit red=P2^0;
+ 402          //sbit yellow=P2^1;
+ 403          //sbit green=P2^2;
+ 404          //void main()
+ 405          //{
+ 406          //  Timer0_Int();
+ 407          //  green=0,yellow=0;
+ 408          //  while(x<=6)//外面6秒常亮
+ 409          //  {
+ 410          //    smg_dis(0,9-x);
+ 411          //    red=1;    
+ 412          //  }
+ 413          //  while(x>6)
+ 414          //  {
+ 415          //    smg_dis(0,9-x);
+ 416          //    if(count<=10)
+ 417          //      red=0;
+ 418          //    else
+ 419          //      red=1;
+ 420          //  }
+ 421          //  x=0;//清零
+ 422          //  
+ 423          //  red=0,green=0;
+ 424          //  while(x<3)
+ 425          //  {
+ 426          //    smg_dis(0,3-x);
+C51 COMPILER V9.59.0.0   MAIN                                                              07/05/2024 02:30:50 PAGE 8   
+
+ 427          //    if(count<=10)
+ 428          //      yellow=1;
+ 429          //    else yellow=0;
+ 430          //  }
+ 431          //  x=0;
+ 432          //  red=0,yellow=0;
+ 433          //  while(x<=6)
+ 434          //  {
+ 435          //    smg_dis(0,9-x);
+ 436          //    green=1;
+ 437          //  }
+ 438          //  while(x>6)
+ 439          //  {
+ 440          //    smg_dis(0,9-x);
+ 441          //    if(count<=10)
+ 442          //      green=0;
+ 443          //    else green=1;
+ 444          //  }
+ 445          //  x=0;
+ 446          //  while(x<3)
+ 447          //  {
+ 448          //    smg_dis(0,3-x);
+ 449          //    if(count<=10)
+ 450          //      yellow=1;
+ 451          //    else yellow=0;
+ 452          //  }
+ 453          //  x=0;
+ 454          //  
+ 455          //}
+ 456          
+ 457          
+ 458          //生日歌
+ 459          
+ 460          #include <config.h>
+ 461          //#include <smg1.h>
+ 462          #include <delay.h>
+ 463          #include <timer.h>
+ 464          #include <beep.h>
+ 465          #include <1602.h>
+ 466          #include <button.h>
+ 467          #include <led8.h>
+ 468          //sbit btn=P2^4;
+ 469          //void main()
+ 470          //{
+ 471          //  
+ 472          //  u8 mode=0;
+ 473          //  LCD1602_Init( );
+ 474          //  while(1)
+ 475          //  {
+ 476          //    if(btn==0) 
+ 477          //    {
+ 478          //      delay_ms(10);
+ 479          //      if(btn==0)
+ 480          //      {
+ 481          //      while(!btn);
+ 482          //      mode=mode^1;
+ 483          //      if(mode)
+ 484          //      {
+ 485          //        LCD1602_clear();
+ 486          //      LCD1602_disstr("Happy Birthday",0,0);
+ 487          //      LCD1602_disstr("To you",1,5);
+ 488          //      playmusic(Music2Meter,Music2TONE,Music2Len);
+C51 COMPILER V9.59.0.0   MAIN                                                              07/05/2024 02:30:50 PAGE 9   
+
+ 489          //      }
+ 490          //      else
+ 491          //      {
+ 492          //        LCD1602_clear( );
+ 493          //        playmusic(NULL,NULL,NULL);
+ 494          //      }
+ 495          //    }
+ 496          //    }
+ 497          //  }
+ 498          //}
+ 499          
+ 500          //生日歌
+ 501          //bit ledkey=1;
+ 502          //void led(void)
+ 503          //{
+ 504          //  while(1)
+ 505          //  {P1=0x00;delay_ms(500);P1=0xff;delay_ms(500);}
+ 506          //}
+ 507          //void main()
+ 508          //{
+ 509          //  LCD1602_Init( );
+ 510          //  while(1)
+ 511          //  {
+ 512          //    if(Btn_Press())
+ 513          //    {
+ 514          //      LCD1602_disstr("Happy Birthday",0,0);
+ 515          //      LCD1602_disstr("To you",1,5);
+ 516          //      led();
+ 517          //      playmusic(Music2Meter,Music2TONE,Music2Len);
+ 518          //    }
+ 519          //    else
+ 520          //    {LCD1602_clear( );}
+ 521          //  }
+ 522          //}
+ 523          //开关灯
+ 524          //sbit led=P2^5;
+ 525          //sbit btn=P2^4;
+ 526          //void main()
+ 527          //{
+ 528          //  led=0;
+ 529          //  while(1)
+ 530          //  {
+ 531          //    if(Btn_Press()) led=~led;
+ 532          //  }
+ 533          //}
+ 534          
+ 535          //走马灯
+ 536          void main()
+ 537          {
+ 538   1        u8 mode=0;
+ 539   1        while(1)
+ 540   1        {
+ 541   2          Led_Ctrl(mode);mode++;Led_Ctrl(mode);mode++;if(mode==2) mode=0;
+ 542   2        }
+ 543   1      }
+ 544          
+ 545          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     27    ----
+   CONSTANT SIZE    =   ----    ----
+C51 COMPILER V9.59.0.0   MAIN                                                              07/05/2024 02:30:50 PAGE 10  
+
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

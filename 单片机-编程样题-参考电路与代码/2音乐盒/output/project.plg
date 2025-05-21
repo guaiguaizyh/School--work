@@ -1,0 +1,25 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+D:\Desktop\桌面\2024\h1\单片机\期末考核\单片机-样卷-参考电路与代码\2音乐盒\project.uvproj
+Project File Date:  06/14/2024
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling main.c...
+compiling delay.c...
+compiling button.c...
+compiling beep.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_S?DELAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?BTN_DOWN?BUTTON
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ALARM?BEEP
+Program Size: data=27.0 xdata=0 code=917
+creating hex file from ".\output\project"...
+".\output\project" - 0 Error(s), 3 Warning(s).
